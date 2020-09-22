@@ -2,7 +2,7 @@ package seedu.duke;
 
 import java.util.Scanner;
 
-public class Duke {
+public class NusExpenses {
     /**
      * Main entry-point for the java.duke.Duke application.
      */
@@ -17,5 +17,6 @@ public class Duke {
 
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
+        
     }
 }
