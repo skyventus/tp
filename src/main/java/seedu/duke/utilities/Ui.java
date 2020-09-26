@@ -3,7 +3,7 @@ package seedu.duke.utilities;
 import java.util.Scanner;
 
 /**
- * Display / Show to user stuffs
+ * Display / Show to user stuffs.
  */
 public class Ui {
     private Scanner in;
@@ -13,7 +13,7 @@ public class Ui {
     }
 
     /**
-     * Read in the next input line
+     * Read in the next input line.
      * @return
      */
     public String readUserCommand() {
@@ -22,16 +22,14 @@ public class Ui {
     }
 
     /**
-     * Close the inputstream
+     * Close the inputstream.
+     *
      */
     public void endInputFeed() {
         in.close();
     }
 
-    /**
-     * Show message to the user
-     * @param message
-     */
+
     public static void showToUser(String message) {
         System.out.println(message);
     }
