@@ -31,7 +31,7 @@ public class Transaction {
     }
 
     /**
-     * To display task in String format
+     * To display task in String format.
      * @return
      */
     public String toString() {
