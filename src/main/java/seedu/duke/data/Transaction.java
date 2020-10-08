@@ -1,12 +1,13 @@
-package seedu.duke;
+package seedu.duke.data;
 
-public class Transaction {
-    private int amount;
+public class Transaction implements ReadOnlyTransaction {
+
+    private double amount;
     private String description;
     private String date;
 
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
@@ -31,10 +32,11 @@ public class Transaction {
     }
 
     /**
-     * To display task in String format
+     * To display task in String format.
+     *
      * @return
      */
     public String toString() {
-        return String.format("%s", this.getDescription());
+        return String.format("%s Date:%s Amount:$%.2f", this.getDescription(), this.getDate(), this.getAmount());
     }
 }
