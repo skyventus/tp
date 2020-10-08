@@ -29,21 +29,21 @@ public class NusExpenses {
         while (!isExit) {
             try {
                 switch ("") {
-                    case "EXIT":
-                        isExit = true;
-                        break;
-                    case "ADD":
-                        break;
-                    case "VIEW":
-                        break;
-                    case "DELETE":
-                        break;
-                    case "SEARCH":
-                        break;
-                    case "TOTAL":
-                        break;
-                    default:
-                        break;
+                case "EXIT":
+                    isExit = true;
+                    break;
+                case "ADD":
+                    break;
+                case "VIEW":
+                    break;
+                case "DELETE":
+                    break;
+                case "SEARCH":
+                    break;
+                case "TOTAL":
+                    break;
+                default:
+                    break;
                 }
             } catch (Exception e) {
             }
