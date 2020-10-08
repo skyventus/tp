@@ -46,6 +46,7 @@ public class NusExpenses {
                     break;
                 }
             } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
 
         }

@@ -1,6 +1,6 @@
 package seedu.duke.data;
 
-public class Transaction implements ReadOnlyTransaction{
+public class Transaction implements ReadOnlyTransaction {
 
     private double amount;
     private String description;
