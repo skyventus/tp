@@ -19,24 +19,18 @@ public class NusExpenses {
         Scanner in = new Scanner(System.in);
         System.out.println("Hello " + in.nextLine());
 
-        /**
-         * Start the Expense Tracker.
-         */
-    new NusExpenses().run();
+        //Start the Expense Tracker.
+        new NusExpenses().run();
 
     }
 
-    public void run(){
+    public void run() {
         boolean isExit = false;
         while (!isExit) {
-
             try {
-
-
                 switch ("") {
-
-                    case"EXIT":
-                        isExit=true;
+                    case "EXIT":
+                        isExit = true;
                         break;
                     case "ADD":
                         break;
@@ -48,10 +42,8 @@ public class NusExpenses {
                         break;
                     case "TOTAL":
                         break;
-
                     default:
                         break;
-
                 }
             } catch (Exception e) {
             }
