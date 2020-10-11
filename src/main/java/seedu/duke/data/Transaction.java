@@ -6,6 +6,11 @@ public class Transaction implements ReadOnlyTransaction {
     private String description;
     private String date;
 
+    public Transaction(double amount, String description, String date) {
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+    }
 
     public double getAmount() {
         return amount;
