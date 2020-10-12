@@ -8,13 +8,16 @@ public class TransactionList implements Iterable<Transaction> {
 
     private final List<Transaction> internalTransactionList;
 
-
-    public TransactionList(List<Transaction> transactionList) {
+    public TransactionList() {
         this.internalTransactionList = new ArrayList<>();
     }
 
     public List<Transaction> getTransactionList() {
         return internalTransactionList;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        internalTransactionList.add(transaction);
     }
 
     @Override
