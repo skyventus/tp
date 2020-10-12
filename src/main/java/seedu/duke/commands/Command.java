@@ -1,9 +1,9 @@
 package seedu.duke.commands;
 
-import seedu.duke.data.Transaction;
+
 import seedu.duke.data.TransactionList;
 
-class Command {
+public class Command {
 
     protected TransactionList transactionList;
     private int targetIndex = -1;
