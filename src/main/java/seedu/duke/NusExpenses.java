@@ -15,6 +15,8 @@ public class NusExpenses {
     }
 
     public void run() {
+
+
         boolean isExit = false;
         while (isExit) {
             try {
