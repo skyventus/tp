@@ -1,7 +1,13 @@
 package seedu.duke.utilities;
 
-import seedu.duke.commands.*;
-
+import seedu.duke.commands.AddCommand;
+import seedu.duke.commands.DeleteCommand;
+import seedu.duke.commands.Command;
+import seedu.duke.commands.HelpCommand;
+import seedu.duke.commands.IncorrectCommand;
+import seedu.duke.commands.SearchCommand;
+import seedu.duke.commands.TotalCommand;
+import seedu.duke.commands.ViewCommand;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +21,7 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            //return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -23,71 +29,72 @@ public class Parser {
 
         switch (commandWord) {
 
-            case AddCommand.COMMAND_WORD:
-                return createAddCommand(arguments);
+        case AddCommand.COMMAND_WORD:
+            return createAddCommand(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return createDeleteCommand(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return createDeleteCommand(arguments);
 
-            case SearchCommand.COMMAND_WORD:
-                return  createSearchCommand(arguments);
+        case SearchCommand.COMMAND_WORD:
+            return createSearchCommand(arguments);
 
-            case TotalCommand.COMMAND_WORD:
-                return createTotalCommand(arguments);
+        case TotalCommand.COMMAND_WORD:
+            return createTotalCommand(arguments);
 
-            case ViewCommand.COMMAND_WORD:
-                return createViewCommand(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return createViewCommand(arguments);
 
-            case HelpCommand.COMMAND_WORD: // Fallthrough
-            default:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD: // Fallthrough
+        default:
+            return new HelpCommand();
         }
     }
-    private Command createAddCommand(String args){
+
+    private Command createAddCommand(String args) {
         Command finalCommand;
-        try{
+        try {
             finalCommand = new AddCommand();
-        }catch (Exception e){
+        } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
     }
 
-    private Command createDeleteCommand(String args){
+    private Command createDeleteCommand(String args) {
         Command finalCommand;
-        try{
+        try {
             finalCommand = new DeleteCommand();
-        }catch (Exception e){
+        } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
     }
 
-    private Command createSearchCommand(String args){
+    private Command createSearchCommand(String args) {
         Command finalCommand;
-        try{
+        try {
             finalCommand = new SearchCommand();
-        }catch (Exception e){
+        } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
     }
 
-    private Command createTotalCommand(String args){
+    private Command createTotalCommand(String args) {
         Command finalCommand;
-        try{
+        try {
             finalCommand = new TotalCommand();
-        }catch (Exception e){
+        } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
     }
 
-    private Command createViewCommand(String args){
+    private Command createViewCommand(String args) {
         Command finalCommand;
-        try{
+        try {
             finalCommand = new ViewCommand();
-        }catch (Exception e){
+        } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
