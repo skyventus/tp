@@ -41,7 +41,8 @@ public class NusExpenses {
         do {
             String userCommandText = ui.readUserCommand();
             command = new Parser().parseCommand(userCommandText);
-            CommandResult result = executeCommandInMain(command);
+            command.setData(transactionList, lastShownList);
+            CommandResult result = command.execute();
             //ui.showResultToUser(result);
         } while (!ExitCommand.isExit(command));
 
@@ -73,16 +74,4 @@ public class NusExpenses {
         System.exit(0);
     }
 
-
-    private CommandResult executeCommandInMain(Command command) {
-        try {
-            command.setData(transactionList, lastShownList);
-            CommandResult result = command.execute();
-            //storage.save(addressBook);
-            return result;
-        } catch (Exception e) {
-            ui.showToUser(e.getMessage());
-            throw new RuntimeException(e);
-        }
-    }
 }
