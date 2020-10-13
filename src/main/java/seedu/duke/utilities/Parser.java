@@ -1,8 +1,16 @@
 package seedu.duke.utilities;
 
-import seedu.duke.commands.*;
 
-import javax.sound.midi.SysexMessage;
+import seedu.duke.commands.AddCommand;
+import seedu.duke.commands.DeleteCommand;
+import seedu.duke.commands.Command;
+import seedu.duke.commands.IncorrectCommand;
+import seedu.duke.commands.SearchCommand;
+import seedu.duke.commands.TotalCommand;
+import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.ExitCommand;
+import seedu.duke.commands.HelpCommand;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,8 +33,6 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            System.out.println("UserInput:" + userInput);
-            System.out.println("Something here ?");
             return new IncorrectCommand("parseCommand");
             //return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
