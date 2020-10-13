@@ -12,6 +12,11 @@ public class TotalCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     @Override
+    public String toString() {
+        return "TotalCommand{}";
+    }
+
+    @Override
     public CommandResult execute() {
         List<Transaction> allTransactions = transactionList.getTransactionList();
         return new CommandResult("All Transaction", allTransactions);
