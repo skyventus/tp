@@ -8,6 +8,7 @@ import seedu.duke.commands.IncorrectCommand;
 import seedu.duke.commands.SearchCommand;
 import seedu.duke.commands.TotalCommand;
 import seedu.duke.commands.ViewCommand;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +18,7 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    //public static final Pattern ADD_COMMAND_FORMAT = Pattern.compile("(?<usage>\\S+)(?<arguments>.*)");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -52,9 +54,21 @@ public class Parser {
 
     private Command createAddCommand(String args) {
         Command finalCommand;
+        String usage = "";
+        Double amount = 0.0;
+        String date = "";
         try {
-            finalCommand = new AddCommand();
+            usage = args.split("\\$")[0];
+            String amount1 = args.substring(args.indexOf("$") + 1);
+            String everythingAfterSign = amount1.trim();
+            if (everythingAfterSign.indexOf(" ") != -1) {
+                amount1 = everythingAfterSign.split(" ")[0];
+                date = everythingAfterSign.split(" ")[1];
+            }
+            amount = Double.parseDouble(amount1);
+            finalCommand = new AddCommand(usage, amount, date);
         } catch (Exception e) {
+            e.printStackTrace();
             finalCommand = new IncorrectCommand();
         }
         return finalCommand;
@@ -63,7 +77,8 @@ public class Parser {
     private Command createDeleteCommand(String args) {
         Command finalCommand;
         try {
-            finalCommand = new DeleteCommand();
+            int index = Integer.parseInt(args.trim());
+            finalCommand = new DeleteCommand(index);
         } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }

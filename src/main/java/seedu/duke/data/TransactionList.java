@@ -8,8 +8,7 @@ public class TransactionList implements Iterable<Transaction> {
 
     private final List<Transaction> internalTransactionList;
 
-
-    public TransactionList(List<Transaction> transactionList) {
+    public TransactionList() {
         this.internalTransactionList = new ArrayList<>();
     }
 
@@ -17,8 +16,22 @@ public class TransactionList implements Iterable<Transaction> {
         return internalTransactionList;
     }
 
+    public void addTransaction(Transaction transaction) {
+        internalTransactionList.add(transaction);
+    }
+
+    public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
+        internalTransactionList.remove(toRemove);
+    }
+
     @Override
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
     }
+
+    public static class TransactionNotFound extends Exception {
+
+    }
+
+
 }

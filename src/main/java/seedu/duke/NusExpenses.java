@@ -1,9 +1,27 @@
 package seedu.duke;
 
-import java.util.Scanner;
+import seedu.duke.commands.Command;
+import seedu.duke.commands.CommandResult;
+import seedu.duke.commands.ExitCommand;
+import seedu.duke.commands.TotalCommand;
+import seedu.duke.data.ReadOnlyTransaction;
+import seedu.duke.data.TransactionList;
+import seedu.duke.utilities.Parser;
+import seedu.duke.utilities.Storage;
+import seedu.duke.utilities.Ui;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 
 public class NusExpenses {
+    private Ui ui;
+    private Storage storage;
+    private TransactionList transactionList = new TransactionList();
+    private List<? extends ReadOnlyTransaction> lastShownList = Collections.emptyList();
+
     /**
      * Main entry-point for the java.duke.Duke application.
      */
@@ -16,6 +34,17 @@ public class NusExpenses {
 
     public void run() {
 
+        Ui ui = new Ui();
+        Parser parser = new Parser();
+
+        Command command;
+        do {
+            String userCommandText = ui.readUserCommand();
+            command = new Parser().parseCommand(userCommandText);
+            command.setData(transactionList, lastShownList);
+            CommandResult result = command.execute();
+            //ui.showResultToUser(result);
+        } while (!ExitCommand.isExit(command));
 
         boolean isExit = false;
         while (isExit) {
@@ -44,4 +73,5 @@ public class NusExpenses {
         }
         System.exit(0);
     }
+
 }
