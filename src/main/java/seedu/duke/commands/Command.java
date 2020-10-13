@@ -27,6 +27,10 @@ public class Command {
         throw new UnsupportedOperationException("This method is to be implemented by child classes");
     }
 
+    protected ReadOnlyTransaction getTargetTransaction() throws IndexOutOfBoundsException {
+        return transactionList.getTransactionList().get(--targetIndex);
+    }
+
     public void setData(TransactionList transactionList, List<? extends ReadOnlyTransaction> readOnlyTransactions) {
         this.transactionList = transactionList;
         this.readOnlyTransaction = readOnlyTransactions;

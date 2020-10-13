@@ -77,7 +77,8 @@ public class Parser {
     private Command createDeleteCommand(String args) {
         Command finalCommand;
         try {
-            finalCommand = new DeleteCommand();
+            int index = Integer.parseInt(args.trim());
+            finalCommand = new DeleteCommand(index);
         } catch (Exception e) {
             finalCommand = new IncorrectCommand();
         }
