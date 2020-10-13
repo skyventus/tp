@@ -20,8 +20,18 @@ public class TransactionList implements Iterable<Transaction> {
         internalTransactionList.add(transaction);
     }
 
+    public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
+        internalTransactionList.remove(toRemove);
+    }
+
     @Override
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
     }
+
+    public static class TransactionNotFound extends Exception {
+
+    }
+
+
 }
