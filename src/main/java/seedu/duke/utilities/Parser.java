@@ -1,13 +1,6 @@
 package seedu.duke.utilities;
 
-import seedu.duke.commands.AddCommand;
-import seedu.duke.commands.DeleteCommand;
-import seedu.duke.commands.Command;
-import seedu.duke.commands.HelpCommand;
-import seedu.duke.commands.IncorrectCommand;
-import seedu.duke.commands.SearchCommand;
-import seedu.duke.commands.TotalCommand;
-import seedu.duke.commands.ViewCommand;
+import seedu.duke.commands.*;
 
 import javax.sound.midi.SysexMessage;
 import java.util.regex.Matcher;
@@ -57,6 +50,9 @@ public class Parser {
 
         case ViewCommand.COMMAND_WORD:
             return createViewCommand(arguments);
+
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
