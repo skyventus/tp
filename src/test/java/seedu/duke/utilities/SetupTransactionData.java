@@ -4,7 +4,7 @@ import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
 
 /**
- * Class to generate typical test test
+ * Class to generate typical test test.
  */
 public class SetupTransactionData {
 
@@ -14,7 +14,7 @@ public class SetupTransactionData {
     private Transaction transactionData4;
     private TransactionList transactionList = new TransactionList();
 
-    public SetupTransactionData(){
+    public SetupTransactionData() {
 
         this.transactionData1 = new Transaction("Chicken Rice", 4.00, "");
         this.transactionData2 = new Transaction("Fried Rice", 15.00, "");
@@ -23,20 +23,20 @@ public class SetupTransactionData {
 
     }
 
-    public TransactionList loadTransactionData(){
-        try{
-                for(Transaction t: getTransactionData()){
-                    this.transactionList.addTransaction(t);
-                }
-                return this.transactionList;
+    public TransactionList loadTransactionData() {
+        try {
+            for (Transaction t : getTransactionData()) {
+                this.transactionList.addTransaction(t);
+            }
+            return this.transactionList;
 
-        }catch(Exception e){
-            assert false: "Error encountered";
+        } catch (Exception e) {
+            assert false : "Error encountered";
         }
         return this.transactionList;
     }
 
-    public Transaction[] getTransactionData(){
-            return new Transaction[]{transactionData1, transactionData2, transactionData3, transactionData4};
+    public Transaction[] getTransactionData() {
+        return new Transaction[]{transactionData1, transactionData2, transactionData3, transactionData4};
     }
 }
