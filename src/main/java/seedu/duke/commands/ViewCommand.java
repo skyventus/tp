@@ -13,7 +13,7 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
 
         List<Transaction> allTransactions = transactionList.getTransactionList();
-        for (int i = 0; i< allTransactions.size(); i++) {
+        for (int i = 0; i < allTransactions.size(); i++) {
             System.out.println(allTransactions.indexOf(i));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS));
