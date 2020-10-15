@@ -10,14 +10,15 @@ public interface ReadOnlyTransaction {
 
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getDate())
-                .append(" Date: ");
+        builder.append(" Description: ")
+                .append(getDescription());
 
-        builder.append(getDescription())
-                .append(" Description: ");
 
-        builder.append(getAmount())
-                .append(" Amount: ");
+        builder.append(" Amount: $")
+                .append(getAmount());
+
+        builder.append(" Date: ")
+                .append(getDate());
 
         return builder.toString();
     }
