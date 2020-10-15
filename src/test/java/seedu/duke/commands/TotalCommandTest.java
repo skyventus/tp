@@ -22,13 +22,8 @@ public class TotalCommandTest {
     @Test
     public void execute_total() {
         TotalCommand command = new TotalCommand();
-
         command.setData(transactionList, lastShownList);
-
-        System.out.println(command.execute());
-
-        assertEquals("", "");
-
+        assertEquals("The total amount you have spent so far is $62.00", command.execute().feedbackToUser);
     }
 
 }
