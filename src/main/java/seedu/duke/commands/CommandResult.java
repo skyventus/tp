@@ -26,7 +26,7 @@ public class CommandResult {
         this.transaction = transaction;
     }
 
-    public Optional<List<? extends ReadOnlyTransaction>> getRelevantPersons() {
+    public Optional<List<? extends ReadOnlyTransaction>> getRelevantTransactions() {
         return Optional.ofNullable(transaction);
     }
 }

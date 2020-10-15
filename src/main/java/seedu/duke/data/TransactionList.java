@@ -15,13 +15,21 @@ public class TransactionList implements Iterable<Transaction> {
     public List<Transaction> getTransactionList() {
         return internalTransactionList;
     }
-
+  
     public void addTransaction(Transaction transaction) {
         internalTransactionList.add(transaction);
+    }
+
+    public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
+        internalTransactionList.remove(toRemove);
     }
 
     @Override
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
+    }
+    
+    public static class TransactionNotFound extends Exception {
+
     }
 }

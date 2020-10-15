@@ -10,9 +10,9 @@ public class AddCommand extends Command {
 
     private final Transaction toAdd;
 
-    public AddCommand(String usage, double amount,
+    public AddCommand(String description, double amount,
                       String date) {
-        this.toAdd = new Transaction(amount, usage, date);
+        this.toAdd = new Transaction(description, amount, date);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class AddCommand extends Command {
             transactionList.addTransaction(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (Exception e) {
-            return new CommandResult(e.toString());
+            return new CommandResult(e.getMessage());
         }
     }
 }
