@@ -8,7 +8,7 @@ public class TransactionList implements Iterable<Transaction> {
 
     private final List<Transaction> internalTransactionList;
 
-    public TransactionList(List<Transaction> transactionList) {
+    public TransactionList() {
         this.internalTransactionList = new ArrayList<>();
     }
 
