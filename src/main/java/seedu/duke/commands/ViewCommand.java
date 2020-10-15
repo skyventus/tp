@@ -22,5 +22,6 @@ public class ViewCommand extends Command {
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS));
 
+
     }
 }
