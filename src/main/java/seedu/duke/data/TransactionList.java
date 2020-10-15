@@ -15,7 +15,7 @@ public class TransactionList implements Iterable<Transaction> {
     public List<Transaction> getTransactionList() {
         return internalTransactionList;
     }
-
+  
     public void addTransaction(Transaction transaction) {
         internalTransactionList.add(transaction);
     }
@@ -28,10 +28,8 @@ public class TransactionList implements Iterable<Transaction> {
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
     }
-
+    
     public static class TransactionNotFound extends Exception {
 
     }
-
-
 }
