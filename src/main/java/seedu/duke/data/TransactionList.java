@@ -1,8 +1,10 @@
 package seedu.duke.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TransactionList implements Iterable<Transaction> {
 
@@ -13,9 +15,10 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     public List<Transaction> getTransactionList() {
-        return internalTransactionList;
+        List<Transaction> list = internalTransactionList.stream().collect(Collectors.toList());
+        return list;
     }
-  
+
     public void addTransaction(Transaction transaction) {
         internalTransactionList.add(transaction);
     }
@@ -28,7 +31,7 @@ public class TransactionList implements Iterable<Transaction> {
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
     }
-    
+
     public static class TransactionNotFound extends Exception {
 
     }

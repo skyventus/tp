@@ -14,6 +14,8 @@ import seedu.duke.commands.HelpCommand;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static seedu.duke.common.Constants.MESSAGE_INVALID_COMMAND_FORMAT;
+
 public class Parser {
 
     /**
@@ -28,12 +30,13 @@ public class Parser {
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
             Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.\\d{2})(?<date>.*)",Pattern.CASE_INSENSITIVE);
+    public static final Pattern SEARCH_COMMAND_FORMAT =
+            Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)",Pattern.CASE_INSENSITIVE);
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand("parseCommand");
-            //return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
@@ -48,7 +51,7 @@ public class Parser {
             return createDeleteCommand(arguments);
 
         case SearchCommand.COMMAND_WORD:
-            return createSearchCommand(arguments);
+            return prepareSearchCommand(arguments);
 
         case TotalCommand.COMMAND_WORD:
             return createTotalCommand(arguments);
@@ -89,7 +92,6 @@ public class Parser {
 
     private Command prepareAdd(String args) {
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
-        System.out.println(args);
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand("Incorrect Add Command");
@@ -119,14 +121,18 @@ public class Parser {
         return finalCommand;
     }
 
-    private Command createSearchCommand(String args) {
-        Command finalCommand;
-        try {
-            finalCommand = new SearchCommand();
-        } catch (Exception e) {
-            finalCommand = new IncorrectCommand("createSearchCommand");
+    private Command prepareSearchCommand(String args) {
+        final Matcher matcher = SEARCH_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand("Incorrect Search Command");
         }
-        return finalCommand;
+        try {
+            return new SearchCommand(
+                    matcher.group("keyword").trim()
+            );
+        } catch (Exception e) {
+            return new IncorrectCommand(e.getMessage());
+        }
     }
 
     private Command createTotalCommand(String args) {
