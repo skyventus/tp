@@ -9,6 +9,10 @@ public class ViewCommand extends Command {
     public static final String COMMAND_WORD = "view";
     public static final String MESSAGE_SUCCESS = "Above are all transaction entered.";
 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": View a list of transactions added to the NUS Expenses Tracker.\n"
+            + "Example: " + COMMAND_WORD;
+
     @Override
     public CommandResult execute() {
 
