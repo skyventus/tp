@@ -17,11 +17,11 @@ public class TransactionList implements Iterable<Transaction> {
     }
   
     public void addTransaction(Transaction transaction) {
-          internalTransactionList.add(transaction);
+        internalTransactionList.add(transaction);
     }
 
     public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
-          internalTransactionList.remove(toRemove);
+        internalTransactionList.remove(toRemove);
     }
 
     @Override
