@@ -18,7 +18,13 @@ public class TotalCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        double totalAmount = 0.00;
         List<Transaction> allTransactions = transactionList.getTransactionList();
-        return new CommandResult("All Transaction", allTransactions);
+        for (Transaction transaction : allTransactions) {
+            totalAmount = totalAmount + transaction.getAmount();
+        }
+        return new CommandResult(
+                String.format("The total amount you have spent so far is $%.2f", totalAmount),
+                allTransactions);
     }
 }
