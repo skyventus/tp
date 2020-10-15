@@ -27,8 +27,7 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>\\w+) (?<amount>\\${1}\\d+\\.\\d{2}) (?<date>.*)");
-
+            Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.\\d{2})(?<date>.*)",Pattern.CASE_INSENSITIVE);
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -90,13 +89,14 @@ public class Parser {
 
     private Command prepareAdd(String args) {
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
+        System.out.println(args);
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand("prepareAdd");
+            return new IncorrectCommand("Incorrect Add Command");
         }
         try {
             return new AddCommand(
-                    matcher.group("description"),
+                    matcher.group("description").trim(),
 
                     Double.parseDouble(matcher.group("amount").replace("$", "")),
 
