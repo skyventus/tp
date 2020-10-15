@@ -4,6 +4,7 @@ import seedu.duke.data.ReadOnlyTransaction;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CommandResult {
 
@@ -12,20 +13,20 @@ public class CommandResult {
      */
     public final String feedbackToUser;
 
-    /**
-     * The list of persons that was produced by the command.
-     */
     private final List<? extends ReadOnlyTransaction> transaction;
 
 
     public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
-
         transaction = null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyTransaction> transaction) {
         this.feedbackToUser = feedbackToUser;
         this.transaction = transaction;
+    }
+
+    public Optional<List<? extends ReadOnlyTransaction>> getRelevantTransactions() {
+        return Optional.ofNullable(transaction);
     }
 }

@@ -6,7 +6,8 @@ import java.util.List;
 
 public class TransactionList implements Iterable<Transaction> {
 
-    private List<Transaction> transactionList;
+    private final List<Transaction> internalTransactionList;
+
 
     private final List<Transaction> internalTransactionList;
 
@@ -17,6 +18,14 @@ public class TransactionList implements Iterable<Transaction> {
 
     public List<Transaction> getTransactionList() {
         return internalTransactionList;
+    }
+  
+    public void addTransaction(Transaction transaction) {
+          internalTransactionList.add(transaction);
+    }
+
+    public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
+          internalTransactionList.remove(toRemove);
     }
 
     @Override

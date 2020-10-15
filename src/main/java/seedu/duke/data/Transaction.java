@@ -6,6 +6,11 @@ public class Transaction implements ReadOnlyTransaction {
     private String description;
     private String date;
 
+    public Transaction(String description, double amount, String date) {
+        this.description = description;
+        this.amount = amount;
+        this.date = date;
+    }
 
     public double getAmount() {
         return amount;
@@ -31,12 +36,4 @@ public class Transaction implements ReadOnlyTransaction {
         this.description = description;
     }
 
-    /**
-     * To display task in String format.
-     *
-     * @return
-     */
-    public String toString() {
-        return String.format("%s Date:%s Amount:$%.2f", this.getDescription(), this.getDate(), this.getAmount());
-    }
 }
