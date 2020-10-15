@@ -1,6 +1,7 @@
 package seedu.duke.commands;
 
 
+import seedu.duke.common.Constants;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
@@ -18,6 +19,11 @@ public class Command {
     }
 
     protected Command() {
+    }
+
+    public static String getMessageForTransactionListShownSummary(
+        List<? extends ReadOnlyTransaction> transactionsDisplayed) {
+        return String.format(Constants.MESSAGE_PERSONS_LISTED_OVERVIEW, transactionsDisplayed.size());
     }
 
     /**
