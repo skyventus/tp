@@ -29,7 +29,8 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.\\d{2})(?<date>.*)",Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})(?<date>.*)",
+                    Pattern.CASE_INSENSITIVE);
     public static final Pattern SEARCH_COMMAND_FORMAT =
             Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)",Pattern.CASE_INSENSITIVE);
 
@@ -116,7 +117,7 @@ public class Parser {
             int index = Integer.parseInt(args.trim());
             finalCommand = new DeleteCommand(index);
         } catch (Exception e) {
-            finalCommand = new IncorrectCommand("createDeleteCommand");
+            finalCommand = new IncorrectCommand("Incorrect Delete Command");
         }
         return finalCommand;
     }
@@ -140,7 +141,7 @@ public class Parser {
         try {
             finalCommand = new TotalCommand();
         } catch (Exception e) {
-            finalCommand = new IncorrectCommand("createTotalCommand");
+            finalCommand = new IncorrectCommand("Incorrect Total Command");
         }
         return finalCommand;
     }
@@ -150,7 +151,7 @@ public class Parser {
         try {
             finalCommand = new ViewCommand();
         } catch (Exception e) {
-            finalCommand = new IncorrectCommand("createViewCommand");
+            finalCommand = new IncorrectCommand("Incorrect View Command");
         }
         return finalCommand;
     }

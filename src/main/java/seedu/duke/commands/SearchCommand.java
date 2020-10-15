@@ -33,7 +33,7 @@ public class SearchCommand extends Command {
     private List<ReadOnlyTransaction> getTransactionsWithNameContainingKeyword(String keyword) {
         final List<ReadOnlyTransaction> matchedTransactions = new ArrayList<>();
         for (ReadOnlyTransaction transaction : transactionList.getTransactionList()) {
-            if (transaction.getDescription().contains(keyword)) {
+            if (transaction.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
                 matchedTransactions.add(transaction);
             }
         }
