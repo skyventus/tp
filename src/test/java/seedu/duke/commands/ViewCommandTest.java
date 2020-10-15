@@ -39,11 +39,6 @@ public class ViewCommandTest {
         String result = command.execute().feedbackToUser;
 
         assertEquals("Above are all transaction entered.", result);
-//        assertEquals("1. Chicken Rice 4.0"
-//                        + "2. Fried Rice 15.0"
-//                        + "3. MSG Rice 20.0"
-//                        + "4. Fish Curry Noodle 23.0".replaceAll("\r\n", ""),
-//                outputStreamCaptor.toString().trim().replaceAll("\r\n", ""));
 
     }
 
