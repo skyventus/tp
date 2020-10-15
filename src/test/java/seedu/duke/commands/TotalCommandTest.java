@@ -1,4 +1,5 @@
 package seedu.duke.commands;
+
 import org.junit.jupiter.api.Test;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.TransactionList;
@@ -19,10 +20,10 @@ public class TotalCommandTest {
 
 
     @Test
-    public void execute_total(){
+    public void execute_total() {
         TotalCommand command = new TotalCommand();
 
-        command.setData(transactionList,lastShownList);
+        command.setData(transactionList, lastShownList);
 
         System.out.println(command.execute());
 
