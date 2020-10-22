@@ -14,6 +14,10 @@ public class TransactionList implements Iterable<Transaction> {
         this.internalTransactionList = new ArrayList<>();
     }
 
+    public TransactionList(List<Transaction> listOfTransaction) {
+        this.internalTransactionList = listOfTransaction;
+    }
+
     public List<Transaction> getTransactionList() {
         List<Transaction> list = internalTransactionList.stream().collect(Collectors.toList());
         return list;
