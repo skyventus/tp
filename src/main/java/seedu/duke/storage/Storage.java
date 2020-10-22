@@ -65,7 +65,6 @@ public class Storage {
     }
 
     public TransactionList load() throws IllegalValueException, InterruptedException {
-        System.out.println("ERROR");
 
         if (!Files.exists(Paths.get(filePath))
                 || !Files.isRegularFile(Paths.get(filePath))) {
