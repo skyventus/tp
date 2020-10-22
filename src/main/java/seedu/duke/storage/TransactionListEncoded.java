@@ -27,12 +27,12 @@ public class TransactionListEncoded {
         final StringBuilder encodedTransactionBuilder = new StringBuilder();
         DecimalFormat df2 = new DecimalFormat("#.00");
         encodedTransactionBuilder.append(transaction.getDate()
-                .equalsIgnoreCase("") ? "-" : transaction.getDate());
+                .equalsIgnoreCase("") ? "-" : transaction.getDate().trim());
         encodedTransactionBuilder.append(" ");
         encodedTransactionBuilder.append(transaction.getDescription());
         encodedTransactionBuilder.append(" ");
         encodedTransactionBuilder.append("$" + df2.format(transaction.getAmount()));
-
+        encodedTransactionBuilder.append("\n");
         return encodedTransactionBuilder.toString();
     }
 }
