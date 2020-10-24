@@ -1,12 +1,20 @@
 package seedu.duke.data;
 
+import java.util.Date;
+
 public interface ReadOnlyTransaction {
 
     double getAmount();
 
     String getDescription();
 
-    String getDate();
+    Date getDate();
+
+    void setAmount(double amount);
+
+    void setDescription(String description);
+
+    void setDate(Date date);
 
     default String getAsTextShowAll() {
         final StringBuilder builder = new StringBuilder();

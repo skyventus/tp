@@ -16,10 +16,10 @@ public class SetupTransactionData {
 
     public SetupTransactionData() {
 
-        this.transactionData1 = new Transaction("Chicken Rice", 4.00, "");
-        this.transactionData2 = new Transaction("Fried Rice", 15.00, "");
-        this.transactionData3 = new Transaction("MSG Rice", 20.00, "");
-        this.transactionData4 = new Transaction("Fish Curry Noodle", 23.00, "");
+        this.transactionData1 = new Transaction("Chicken Rice", 4.00, null);
+        this.transactionData2 = new Transaction("Fried Rice", 15.00, null);
+        this.transactionData3 = new Transaction("MSG Rice", 20.00, null);
+        this.transactionData4 = new Transaction("Fish Curry Noodle", 23.00, null);
 
     }
 
