@@ -2,6 +2,8 @@ package seedu.duke.commands;
 
 import seedu.duke.data.Transaction;
 
+import java.util.Date;
+
 public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New transaction added.";
@@ -17,7 +19,7 @@ public class AddCommand extends Command {
     private final Transaction toAdd;
 
     public AddCommand(String description, double amount,
-                      String date) {
+                      Date date) {
         this.toAdd = new Transaction(description, amount, date);
     }
 

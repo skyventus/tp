@@ -31,6 +31,19 @@ public class TransactionList implements Iterable<Transaction> {
         internalTransactionList.remove(toRemove);
     }
 
+    public void updateTransaction(ReadOnlyTransaction toUpdate, int index) throws TransactionNotFound {
+        ReadOnlyTransaction target = internalTransactionList.get(index - 1);
+        if (toUpdate.getAmount() > 0.0) {
+            target.setAmount(toUpdate.getAmount());
+        }
+        if (!toUpdate.getDescription().isEmpty()) {
+            target.setDescription(toUpdate.getDescription());
+        }
+        if (toUpdate.getDate() != null) {
+            target.setDate(toUpdate.getDate());
+        }
+    }
+
     @Override
     public Iterator<Transaction> iterator() {
         return internalTransactionList.iterator();
