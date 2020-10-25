@@ -1,9 +1,12 @@
 package seedu.duke.storage;
 
+import seedu.duke.commands.IncorrectCommand;
 import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
 import seedu.duke.exception.IllegalValueException;
+import seedu.duke.utilities.Parser;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +22,17 @@ public class TransactionListDecoded {
     }
 
     public static Transaction decodeTransactionFromString(String transactionText) {
-        String[] transactionSplit = transactionText.split(" ");
-        String date = transactionSplit[0].equals("-") ? "" : transactionSplit[0].trim();
-        String description = transactionText.substring(
-                transactionText.indexOf(transactionSplit[1]), transactionText.indexOf("$") - 1).trim();
-        double d = Double.parseDouble(transactionText.substring(transactionText.indexOf("$") + 1));
-        double amount = d;
-        return new Transaction(description, amount, date);
+        try {
+            String[] transactionSplit = transactionText.split(" ");
+            String date = transactionSplit[0].equals("-") ? "" : transactionSplit[0].trim();
+            String description = transactionText.substring(
+                    transactionText.indexOf(transactionSplit[1]), transactionText.indexOf("$") - 1).trim();
+            double d = Double.parseDouble(transactionText.substring(transactionText.indexOf("$") + 1));
+            double amount = d;
+            return new Transaction(description, amount, Parser.sdf.parse(date));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -2,6 +2,7 @@ package seedu.duke.storage;
 
 import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
+import seedu.duke.utilities.Parser;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -25,9 +26,10 @@ public class TransactionListEncoded {
     private static String encodedTransactionToString(Transaction transaction) {
 
         final StringBuilder encodedTransactionBuilder = new StringBuilder();
-        DecimalFormat df2 = new DecimalFormat("#.00");
-        encodedTransactionBuilder.append(transaction.getDate()
-                .equalsIgnoreCase("") ? "-" : transaction.getDate().trim());
+        final DecimalFormat df2 = new DecimalFormat("#.00");
+        if (transaction.getDate() != null) {
+            encodedTransactionBuilder.append(Parser.sdf.format(transaction.getDate()));
+        }
         encodedTransactionBuilder.append(" ");
         encodedTransactionBuilder.append(transaction.getDescription());
         encodedTransactionBuilder.append(" ");
