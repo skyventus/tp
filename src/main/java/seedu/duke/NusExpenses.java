@@ -8,6 +8,7 @@ import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.ExitCommand;
 
+import seedu.duke.data.BudgetList;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.TransactionList;
 import seedu.duke.exception.IllegalValueException;
@@ -15,6 +16,8 @@ import seedu.duke.storage.Storage;
 import seedu.duke.storage.Storage.InvalidStorageFilePathException;
 import seedu.duke.utilities.Parser;
 import seedu.duke.utilities.Ui;
+
+import seedu.duke.data.ReadOnlyBudget;
 
 
 public class NusExpenses {
@@ -29,6 +32,9 @@ public class NusExpenses {
     //Expenses list shown to the user recently.
     private List<? extends ReadOnlyTransaction> lastShownList = Collections.emptyList();
     private Storage storage;
+
+    private BudgetList budgetList = new BudgetList();
+    private List<? extends ReadOnlyBudget> lastShownBudgetList = Collections.emptyList();
 
     /**
      * Main entry-point for the java.duke.Duke application.
@@ -75,10 +81,10 @@ public class NusExpenses {
         do {
             String userCommandText = ui.readUserCommand();
             command = new Parser().parseCommand(userCommandText);
+            command.setBudgetData(budgetList, lastShownBudgetList);
             CommandResult result = executeCommand(command);
             recordResult(result);
             ui.showResultToUser(result);
-
         } while (!ExitCommand.isExit(command));
     }
 
