@@ -11,11 +11,13 @@ import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.ExitCommand;
 import seedu.duke.commands.HelpCommand;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
-    private Command addCommand = new AddCommand("lunch", 4.00, "2020-09-09");
+    private Command addCommand = new AddCommand("lunch", 4.00, new Date());
     private Command deleteCommand = new DeleteCommand(1);
     private Command viewCommand = new ViewCommand();
     private Command totalCommand = new TotalCommand();

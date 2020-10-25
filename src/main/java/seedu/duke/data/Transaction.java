@@ -1,12 +1,14 @@
 package seedu.duke.data;
 
+import java.util.Date;
+
 public class Transaction implements ReadOnlyTransaction {
 
     private double amount;
     private String description;
-    private String date;
+    private Date date;
 
-    public Transaction(String description, double amount, String date) {
+    public Transaction(String description, double amount, Date date) {
         this.description = description;
         this.amount = amount;
         this.date = date;
@@ -16,15 +18,17 @@ public class Transaction implements ReadOnlyTransaction {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+
+
+    public void setDate(Date date) {
         this.date = date;
     }
 
