@@ -7,11 +7,17 @@ import seedu.duke.commands.Command;
 import seedu.duke.commands.IncorrectCommand;
 import seedu.duke.commands.SearchCommand;
 import seedu.duke.commands.TotalCommand;
+import seedu.duke.commands.UpdateCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.ExitCommand;
 import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.AddBudgetCommand;
 import seedu.duke.commands.ViewBudgetCommand;
+import seedu.duke.common.Constants;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,11 +38,16 @@ public class Parser {
     public static final Pattern ADD_COMMAND_FORMAT =
             Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})(?<date>.*)",
                     Pattern.CASE_INSENSITIVE);
+    public static final Pattern UPDATE_COMMAND_FORMAT =
+            Pattern.compile("(?<index>^\\d$)(?<usage>^\\\\d$)(?<date>.*)",
+                    Pattern.CASE_INSENSITIVE);
     public static final Pattern SEARCH_COMMAND_FORMAT =
             Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)",Pattern.CASE_INSENSITIVE);
     public static final Pattern ADDBUDGET_COMMAND_FORMAT =
             Pattern.compile("(?<category>[^/]*)(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})",
                     Pattern.CASE_INSENSITIVE);
+
+    public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -73,6 +84,9 @@ public class Parser {
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
+        case UpdateCommand.COMMAND_WORD:
+            return prepareUpdate(arguments);
+
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
             return new HelpCommand();
@@ -108,12 +122,17 @@ public class Parser {
             return new IncorrectCommand("Incorrect Add Command");
         }
         try {
+            String dateString = matcher.group("date");
+            Date date = null;
+            if (!dateString.isEmpty()) {
+                date = sdf.parse(dateString);
+            }
             return new AddCommand(
                     matcher.group("description").trim(),
 
                     Double.parseDouble(matcher.group("amount").replace("$", "")),
 
-                    matcher.group("date")
+                    date
 
             );
         } catch (Exception e) {
@@ -165,6 +184,46 @@ public class Parser {
         }
         return finalCommand;
     }
+  
+    private Command prepareUpdate(String args) {
+
+        String temp = "";
+        String usage = "";
+        double amount = 0.0;
+        Date date = null;
+        try {
+            final Integer index = Integer.parseInt(args.trim().split(" ")[0]);
+            if (args.indexOf(Constants.UPDATE_COMMAND_AMOUNT_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_AMOUNT_PARAM) + 2);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                amount = Double.parseDouble(temp.trim());
+            }
+
+            if (args.indexOf(Constants.UPDATE_COMMAND_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_DATE_PARAM) + 2);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                date = sdf.parse(temp.trim());
+            }
+
+            if (args.indexOf(Constants.UPDATE_COMMAND_USAGE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_USAGE_PARAM) + 2);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                usage = temp;
+            }
+
+            return new UpdateCommand(index, usage, amount, date);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
 
     private Command createAddBudgetCommand(String args) {
         final Matcher matcher = ADDBUDGET_COMMAND_FORMAT.matcher(args.trim());
@@ -184,7 +243,7 @@ public class Parser {
             return new IncorrectCommand(e.getMessage());
         }
     }
-
+  
     private Command createViewBudgetCommand(String args) {
         Command finalCommand;
         try {

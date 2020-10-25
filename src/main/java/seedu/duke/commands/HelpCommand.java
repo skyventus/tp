@@ -10,6 +10,7 @@ public class HelpCommand extends Command {
     public CommandResult execute() {
         return new CommandResult(
                 AddCommand.MESSAGE_USAGE
+                        + System.lineSeparator() + "\n" + AddCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + DeleteCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + SearchCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + ViewCommand.MESSAGE_USAGE
