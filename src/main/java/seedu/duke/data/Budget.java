@@ -1,35 +1,23 @@
 package seedu.duke.data;
 
-import java.util.Date;
-
-public class Transaction implements ReadOnlyTransaction {
+public class Budget implements ReadOnlyBudget {
 
     private double amount;
     private String description;
-    private Date date;
+    private String category;
 
-    public Transaction(String description, double amount, Date date) {
+    public Budget(String category, String description, double amount) {
+        this.category = category;
         this.description = description;
         this.amount = amount;
-        this.date = date;
     }
 
     public double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public String getDescription() {
@@ -38,6 +26,14 @@ public class Transaction implements ReadOnlyTransaction {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setDCategory(String category) {
+        this.category = category;
     }
 
 }

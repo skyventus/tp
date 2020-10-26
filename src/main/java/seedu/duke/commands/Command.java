@@ -5,6 +5,8 @@ import seedu.duke.common.Constants;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
+import seedu.duke.data.BudgetList;
+import seedu.duke.data.ReadOnlyBudget;
 
 import java.util.List;
 
@@ -13,6 +15,9 @@ public class Command {
     protected TransactionList transactionList;
     protected List<? extends ReadOnlyTransaction> readOnlyTransaction;
     private int targetIndex = -1;
+
+    protected BudgetList budgetList;
+    protected List<? extends ReadOnlyBudget> readOnlyBudget;
 
     public Command(int targetIndex) {
         this.setTargetIndex(targetIndex);
@@ -50,6 +55,17 @@ public class Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Executes the command for Budget and returns the result.
+     */
+    protected ReadOnlyBudget getTargetBudget() throws IndexOutOfBoundsException {
+        return budgetList.getBudgetList().get(--targetIndex);
+    }
+
+    public void setBudgetData(BudgetList budgetList, List<? extends ReadOnlyBudget> readOnlyBudget) {
+        this.budgetList = budgetList;
+        this.readOnlyBudget = readOnlyBudget;
+    }
 
 }
 

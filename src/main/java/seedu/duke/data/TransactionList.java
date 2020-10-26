@@ -14,6 +14,10 @@ public class TransactionList implements Iterable<Transaction> {
         this.internalTransactionList = new ArrayList<>();
     }
 
+    public TransactionList(List<Transaction> listOfTransaction) {
+        this.internalTransactionList = listOfTransaction;
+    }
+
     public List<Transaction> getTransactionList() {
         List<Transaction> list = internalTransactionList.stream().collect(Collectors.toList());
         return list;
@@ -25,6 +29,19 @@ public class TransactionList implements Iterable<Transaction> {
 
     public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
         internalTransactionList.remove(toRemove);
+    }
+
+    public void updateTransaction(ReadOnlyTransaction toUpdate, int index) throws TransactionNotFound {
+        ReadOnlyTransaction target = internalTransactionList.get(index - 1);
+        if (toUpdate.getAmount() > 0.0) {
+            target.setAmount(toUpdate.getAmount());
+        }
+        if (!toUpdate.getDescription().isEmpty()) {
+            target.setDescription(toUpdate.getDescription());
+        }
+        if (toUpdate.getDate() != null) {
+            target.setDate(toUpdate.getDate());
+        }
     }
 
     @Override
