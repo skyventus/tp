@@ -11,10 +11,13 @@ import seedu.duke.commands.UpdateCommand;
 import seedu.duke.commands.ViewCommand;
 import seedu.duke.commands.ExitCommand;
 import seedu.duke.commands.HelpCommand;
+import seedu.duke.commands.AddBudgetCommand;
+import seedu.duke.commands.ViewBudgetCommand;
 import seedu.duke.common.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,6 +43,9 @@ public class Parser {
                     Pattern.CASE_INSENSITIVE);
     public static final Pattern SEARCH_COMMAND_FORMAT =
             Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)",Pattern.CASE_INSENSITIVE);
+    public static final Pattern ADDBUDGET_COMMAND_FORMAT =
+            Pattern.compile("(?<category>[^/]*)(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})",
+                    Pattern.CASE_INSENSITIVE);
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -68,6 +74,12 @@ public class Parser {
 
         case ViewCommand.COMMAND_WORD:
             return createViewCommand(arguments);
+
+        case AddBudgetCommand.COMMAND_WORD:
+            return createAddBudgetCommand(arguments);
+
+        case ViewBudgetCommand.COMMAND_WORD:
+            return createViewBudgetCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -172,7 +184,7 @@ public class Parser {
         }
         return finalCommand;
     }
-
+  
     private Command prepareUpdate(String args) {
 
         String temp = "";
@@ -205,12 +217,40 @@ public class Parser {
                 usage = temp;
             }
 
-
             return new UpdateCommand(index, usage, amount, date);
+
         } catch (Exception e) {
             e.printStackTrace();
             return new IncorrectCommand(e.getMessage());
         }
     }
 
+    private Command createAddBudgetCommand(String args) {
+        final Matcher matcher = ADDBUDGET_COMMAND_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand("Incorrect Add Command");
+        }
+        try {
+            return new AddBudgetCommand(
+                    matcher.group("category").trim(),
+                    matcher.group("description").trim(),
+
+                    Double.parseDouble(matcher.group("amount").replace("$", ""))
+
+            );
+        } catch (Exception e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+  
+    private Command createViewBudgetCommand(String args) {
+        Command finalCommand;
+        try {
+            finalCommand = new ViewBudgetCommand();
+        } catch (Exception e) {
+            finalCommand = new IncorrectCommand("Incorrect View Budget Command");
+        }
+        return finalCommand;
+    }
 }
