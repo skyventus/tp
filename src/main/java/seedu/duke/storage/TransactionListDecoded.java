@@ -27,9 +27,9 @@ public class TransactionListDecoded {
             String date = transactionSplit[0].equals("-") ? "" : transactionSplit[0].trim();
             String description = transactionText.substring(
                     transactionText.indexOf(transactionSplit[1]), transactionText.indexOf("$") - 1).trim();
-            double d = Double.parseDouble(transactionText.substring(transactionText.indexOf("$") + 1));
-            double amount = d;
-            return new Transaction(description, amount, Parser.sdf.parse(date));
+            double amount = Double.parseDouble(transactionText.substring(transactionText.indexOf("$") + 1,transactionText.indexOf("/c") - 1));
+            String category = transactionText.substring(transactionText.indexOf("/c") + 2).trim();
+            return new Transaction(description, amount, Parser.sdf.parse(date),category);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
