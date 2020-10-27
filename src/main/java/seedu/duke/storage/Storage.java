@@ -40,6 +40,7 @@ public class Storage {
     public Storage(String fileDirectory, String fileName) throws InvalidStorageFilePathException {
         this.filePath = fileName;
         this.fileDirectory = fileDirectory;
+        assert !fileName.isBlank() : "file name should not be empty.";
 
         if (!isValidFilePath(fileName)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
@@ -48,6 +49,7 @@ public class Storage {
 
     public void save(TransactionList transactionsList) throws StorageOperationException {
         FileWriter fw;
+        assert transactionsList != null : "transactionsList shouldn't be null object";
         try {
             logger.log(Level.INFO, "Saving transaction in progress...");
             fw = new FileWriter(filePath);

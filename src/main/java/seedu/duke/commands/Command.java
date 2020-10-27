@@ -43,8 +43,8 @@ public class Command {
     }
 
     public void setData(TransactionList transactionList, List<? extends ReadOnlyTransaction> readOnlyTransactions) {
-        assert transactionList != null;
-        
+        assert transactionList != null : "transaction should not be null object";
+
         this.transactionList = transactionList;
         this.readOnlyTransaction = readOnlyTransactions;
     }

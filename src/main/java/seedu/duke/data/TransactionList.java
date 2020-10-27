@@ -27,17 +27,17 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     public void addTransaction(Transaction transaction) {
-        assert transaction != null;
+        assert transaction != null : "transaction should not be null object";
         internalTransactionList.add(transaction);
     }
 
     public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
-        assert toRemove != null;
+        assert toRemove != null : "ReadOnlyTransaction should not be null object";
         internalTransactionList.remove(toRemove);
     }
 
     public void updateTransaction(ReadOnlyTransaction toUpdate, int index) throws TransactionNotFound {
-        assert toUpdate != null;
+        assert toUpdate != null : "Transaction should not be null object";
 
         ReadOnlyTransaction target = internalTransactionList.get(index - 1);
         if (toUpdate.getAmount() > 0.0) {

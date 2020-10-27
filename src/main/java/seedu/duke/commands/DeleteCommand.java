@@ -16,7 +16,7 @@ public class DeleteCommand extends Command {
 
     public DeleteCommand(int targetIndex) {
         super(targetIndex);
-        assert targetIndex >= 0;
+        assert targetIndex >= 0 : "index shouldn't be a negative value";
     }
 
     @Override
