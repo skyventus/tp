@@ -42,7 +42,8 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>\\s?[\\w+]*)(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s\\d{4}-{1}"
+            Pattern.compile("(?<description>\\s?[a-zA-Z\\s\\S]+)"
+                            + "(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s\\d{4}-{1}"
                             + "\\d{2}-{1}\\d{2})?(?<category>\\s\\/{1}c{1}\\s{1}[a-zA-Z]+)?",
                     Pattern.CASE_INSENSITIVE);
     public static final Pattern UPDATE_COMMAND_FORMAT =
