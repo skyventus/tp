@@ -3,6 +3,9 @@ package seedu.duke.utilities;
 import seedu.duke.data.Transaction;
 import seedu.duke.data.TransactionList;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Class to generate typical test test.
  */
@@ -15,12 +18,18 @@ public class SetupTransactionData {
     private TransactionList transactionList = new TransactionList();
 
     public SetupTransactionData() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        this.transactionData1 = new Transaction("Chicken Rice", 4.00, null);
-        this.transactionData2 = new Transaction("Fried Rice", 15.00, null);
-        this.transactionData3 = new Transaction("MSG Rice", 20.00, null);
-        this.transactionData4 = new Transaction("Fish Curry Noodle", 23.00, null);
+        try {
 
+            this.transactionData1 = new Transaction("Chicken Rice", 4.00, sdf.parse("2020-10-27"), "FOOD");
+            this.transactionData2 = new Transaction("Fried Rice", 15.00, sdf.parse("2020-10-28"), "FOOD");
+            this.transactionData3 = new Transaction("Corsair Keyboard", 200.00, null, "ENTERTAINMENT");
+            this.transactionData4 = new Transaction("Menthol Mints", 2.10, null, "");
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     public TransactionList loadTransactionData() {

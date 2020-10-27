@@ -48,7 +48,8 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, userInput, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, userInput,
+                    HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
@@ -94,23 +95,24 @@ public class Parser {
 
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(), HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
         try {
             String dateString = matcher.group("date");
             Date date;
             if (!(dateString == null || dateString.isEmpty())) {
                 date = sdf.parse(dateString);
-            }else{
+            } else {
                 date = null;
             }
             String categoryString = matcher.group("category");
             String category;
-            if(!(categoryString == null || categoryString.isEmpty())){
-                categoryString = categoryString.substring(categoryString.indexOf("/")+2).trim();
+            if (!(categoryString == null || categoryString.isEmpty())) {
+                categoryString = categoryString.substring(categoryString.indexOf("/") + 2).trim();
                 category = categoryString;
-            }else{
-                category="";
+            } else {
+                category = "";
             }
 
             return new AddCommand(
@@ -126,7 +128,8 @@ public class Parser {
         } catch (Exception e) {
             System.out.println("Inside PrepareAdd");
             e.printStackTrace();
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(), HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
     }
 
