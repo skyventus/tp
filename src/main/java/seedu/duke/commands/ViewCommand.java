@@ -34,7 +34,7 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
         List<Transaction> allTransactions;
         if (this.category != null && !this.category.isEmpty()) {
-            if(Transaction.enumContains(this.category.toUpperCase())) {
+            if (Transaction.enumContains(this.category.toUpperCase())) {
                 allTransactions = transactionList.getTransactionsByCategory(this.category.toUpperCase());
                 return new CommandResult("Displaying category: " + this.category.toUpperCase() + " \n"
                         + String.format(MESSAGE_SUCCESS), allTransactions);

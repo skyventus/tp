@@ -49,8 +49,8 @@ public class TransactionList implements Iterable<Transaction> {
 
     public List<Transaction> getTransactionsByCategory(String category) {
         List<Transaction> transactionsAccordingToCategory = new ArrayList<>();
-        for(Transaction transaction: internalTransactionList) {
-            if(transaction.getCategory().equalsIgnoreCase(category)) {
+        for (Transaction transaction: internalTransactionList) {
+            if (transaction.getCategory().equalsIgnoreCase(category)) {
                 transactionsAccordingToCategory.add(transaction);
             }
         }
