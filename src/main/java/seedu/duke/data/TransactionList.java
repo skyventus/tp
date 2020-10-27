@@ -47,6 +47,16 @@ public class TransactionList implements Iterable<Transaction> {
         }
     }
 
+    public List<Transaction> getTransactionsByCategory(String category) {
+        List<Transaction> transactionsAccordingToCategory = new ArrayList<>();
+        for(Transaction transaction: internalTransactionList) {
+            if(transaction.getCategory().equalsIgnoreCase(category)) {
+                transactionsAccordingToCategory.add(transaction);
+            }
+        }
+        return transactionsAccordingToCategory;
+    }
+
     public List<Transaction> getTransactionsWithinPeriod(Date startDate, Date endDate) {
         List<Transaction> requiredPeriodTransaction = new ArrayList<>();
         if (startDate != null || endDate != null) {

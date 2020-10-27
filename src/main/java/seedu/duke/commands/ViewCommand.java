@@ -1,9 +1,8 @@
 package seedu.duke.commands;
 
 
-import seedu.duke.data.Transaction;
-import seedu.duke.utilities.Parser;
 
+import seedu.duke.data.Transaction;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -20,32 +19,32 @@ public class ViewCommand extends Command {
 
     private Date startDate;
     private Date endDate;
+    private String category;
 
-    public ViewCommand(Date startDate,
-                       Date endDate) {
+    public ViewCommand(String category) {
+        this.category = category;
+    }
+
+    public ViewCommand(Date startDate, Date endDate) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     @Override
     public CommandResult execute() {
-
-        List<Transaction> allTransactions = transactionList.getTransactionsWithinPeriod(this.startDate, this.endDate);
-        //        int count = 1;
-        //        for (Transaction transaction : allTransactions) {
-        //            StringBuilder output = new StringBuilder();
-        //            output.append(count + ". ");
-        //            output.append(transaction.getDescription() + " " + "$" + transaction.getAmount());
-        //            if (transaction.getDate() != null) {
-        //                output.append(Parser.sdf.format(transaction.getDate()) + " ");
-        //            }
-        //            System.out.println(output.toString());
-        //            count++;
-        //        }
-        String timePeriod = transactionList.getDatePeriodString(this.startDate, this.endDate);
-
-        return new CommandResult("Displaying : " + timePeriod + " \n"
-                + String.format(MESSAGE_SUCCESS), allTransactions);
-
+        List<Transaction> allTransactions;
+        if (this.category != null && !this.category.isEmpty()) {
+            if(Transaction.enumContains(this.category.toUpperCase())) {
+                allTransactions = transactionList.getTransactionsByCategory(this.category.toUpperCase());
+                return new CommandResult("Displaying category: " + this.category.toUpperCase() + " \n"
+                        + String.format(MESSAGE_SUCCESS), allTransactions);
+            }
+        } else {
+            allTransactions = transactionList.getTransactionsWithinPeriod(this.startDate, this.endDate);
+            String timePeriod = transactionList.getDatePeriodString(this.startDate, this.endDate);
+            return new CommandResult("Displaying : " + timePeriod + " \n"
+                    + String.format(MESSAGE_SUCCESS), allTransactions);
+        }
+        return new CommandResult("Incorrect View Command");
     }
 }
