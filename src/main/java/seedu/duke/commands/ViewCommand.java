@@ -5,6 +5,7 @@ import seedu.duke.data.Transaction;
 import seedu.duke.utilities.Parser;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ViewCommand extends Command {
@@ -17,22 +18,34 @@ public class ViewCommand extends Command {
             + ": View a list of transactions added to the NUS Expenses Tracker.\n"
             + "Example: " + COMMAND_WORD;
 
+    private Date startDate;
+    private Date endDate;
+
+    public ViewCommand(Date startDate,
+                       Date endDate) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     @Override
     public CommandResult execute() {
 
-        List<Transaction> allTransactions = transactionList.getTransactionList();
-        int count = 1;
-        for (Transaction transaction : allTransactions) {
-            StringBuilder output = new StringBuilder();
-            output.append(count + ".");
-            if (transaction.getDate() != null) {
-                output.append(Parser.sdf.format(transaction.getDate()) + " ");
-            }
-            output.append(transaction.getDescription() + " "
-                    + transaction.getAmount());
-            System.out.println(output.toString());
-            count++;
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        List<Transaction> allTransactions = transactionList.getTransactionsWithinPeriod(this.startDate, this.endDate);
+        //        int count = 1;
+        //        for (Transaction transaction : allTransactions) {
+        //            StringBuilder output = new StringBuilder();
+        //            output.append(count + ". ");
+        //            output.append(transaction.getDescription() + " " + "$" + transaction.getAmount());
+        //            if (transaction.getDate() != null) {
+        //                output.append(Parser.sdf.format(transaction.getDate()) + " ");
+        //            }
+        //            System.out.println(output.toString());
+        //            count++;
+        //        }
+        String timePeriod = transactionList.getDatePeriodString(this.startDate, this.endDate);
+
+        return new CommandResult("Displaying : " + timePeriod + " \n"
+                + String.format(MESSAGE_SUCCESS), allTransactions);
+
     }
 }

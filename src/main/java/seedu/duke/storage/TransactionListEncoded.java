@@ -34,6 +34,10 @@ public class TransactionListEncoded {
         encodedTransactionBuilder.append(transaction.getDescription());
         encodedTransactionBuilder.append(" ");
         encodedTransactionBuilder.append("$" + df2.format(transaction.getAmount()));
+        encodedTransactionBuilder.append(" ");
+        encodedTransactionBuilder.append("/c");
+        encodedTransactionBuilder.append(" ");
+        encodedTransactionBuilder.append(transaction.getCategory());
         encodedTransactionBuilder.append("\n");
         return encodedTransactionBuilder.toString();
     }

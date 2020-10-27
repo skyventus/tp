@@ -1,8 +1,10 @@
 package seedu.duke.commands;
 
+import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.Transaction;
 
 import java.util.Date;
+import java.util.Optional;
 
 public class AddCommand extends Command {
 
@@ -19,8 +21,8 @@ public class AddCommand extends Command {
     private final Transaction toAdd;
 
     public AddCommand(String description, double amount,
-                      Date date) {
-        this.toAdd = new Transaction(description, amount, date);
+                      Date date, String category) {
+        this.toAdd = new Transaction(description, amount, date,category);
     }
 
     @Override
@@ -29,6 +31,7 @@ public class AddCommand extends Command {
             transactionList.addTransaction(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (Exception e) {
+            System.out.println("Add command execute");
             return new CommandResult(e.getMessage());
         }
     }

@@ -1,10 +1,17 @@
 package seedu.duke.utilities;
 
 
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import seedu.duke.commands.AddCommand;
 import seedu.duke.commands.DeleteCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.IncorrectCommand;
+import seedu.duke.commands.ReportCommand;
 import seedu.duke.commands.SearchCommand;
 import seedu.duke.commands.TotalCommand;
 import seedu.duke.commands.UpdateCommand;
@@ -14,10 +21,14 @@ import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.AddBudgetCommand;
 import seedu.duke.commands.ViewBudgetCommand;
 import seedu.duke.common.Constants;
+import seedu.duke.data.Transaction;
 
+
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,15 +39,11 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    //public static final Pattern BASIC_COMMAND_FORMAT =
-    // Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)",Pattern.CASE_INSENSITIVE);
-    //public static final Pattern ADD_COMMAND_FORMAT =
-    // Pattern.compile("(?<usage>\\S+)(?<arguments>.*)");
-
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})(?<date>.*)",
+            Pattern.compile("(?<description>\\s?[\\w+]*)(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s\\d{4}-{1}"
+                            + "\\d{2}-{1}\\d{2})?(?<category>\\s\\/{1}c{1}\\s{1}[a-zA-Z]+)?",
                     Pattern.CASE_INSENSITIVE);
     public static final Pattern UPDATE_COMMAND_FORMAT =
             Pattern.compile("(?<index>^\\d$)(?<usage>^\\\\d$)(?<date>.*)",
@@ -48,11 +55,13 @@ public class Parser {
                     Pattern.CASE_INSENSITIVE);
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat sdfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, userInput,
+                    HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
@@ -87,56 +96,55 @@ public class Parser {
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
 
+        case ReportCommand.COMMAND_WORD:
+            return prepareReportCommand(arguments);
+
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
             return new HelpCommand();
         }
     }
 
-    //    private Command createAddCommand(String args) {
-    //        Command finalCommand;
-    //        String usage = "";
-    //        Double amount = 0.0;
-    //        String date = "";
-    //        try {
-    //            usage = args.split("\\$")[0];
-    //            String amount1 = args.substring(args.indexOf("$") + 1);
-    //            String everythingAfterSign = amount1.trim();
-    //            if (everythingAfterSign.indexOf(" ") != -1) {
-    //                amount1 = everythingAfterSign.split(" ")[0];
-    //                date = everythingAfterSign.split(" ")[1];
-    //            }
-    //            amount = Double.parseDouble(amount1);
-    //            finalCommand = new AddCommand(usage, amount, date);
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //            finalCommand = new IncorrectCommand("createAddCommand");
-    //        }
-    //        return finalCommand;
-    //  }
-
     private Command prepareAdd(String args) {
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand("Incorrect Add Command");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
         try {
             String dateString = matcher.group("date");
-            Date date = null;
-            if (!dateString.isEmpty()) {
+            Date date;
+            if (!(dateString == null || dateString.isEmpty())) {
                 date = sdf.parse(dateString);
+            } else {
+                date = null;
             }
+            String categoryString = matcher.group("category");
+            String category;
+            if (!(categoryString == null || categoryString.isEmpty())) {
+                categoryString = categoryString.substring(categoryString.indexOf("/") + 2).trim();
+                category = categoryString;
+            } else {
+                category = "";
+            }
+
             return new AddCommand(
                     matcher.group("description").trim(),
 
                     Double.parseDouble(matcher.group("amount").replace("$", "")),
 
-                    date
+                    date,
+
+                    category.toUpperCase()
 
             );
         } catch (Exception e) {
-            return new IncorrectCommand(e.getMessage());
+            System.out.println("Inside PrepareAdd");
+            e.printStackTrace();
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
     }
 
@@ -178,19 +186,39 @@ public class Parser {
     private Command createViewCommand(String args) {
         Command finalCommand;
         try {
-            finalCommand = new ViewCommand();
+            String temp = "";
+            Date startDate = null;
+            Date endDate = null;
+            if (args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                startDate = sdf.parse(temp.trim());
+            }
+
+            if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                endDate = sdf.parse(temp.trim());
+            }
+
+            finalCommand = new ViewCommand(startDate,endDate);
         } catch (Exception e) {
             finalCommand = new IncorrectCommand("Incorrect View Command");
         }
         return finalCommand;
     }
-  
+
     private Command prepareUpdate(String args) {
 
         String temp = "";
         String usage = "";
         double amount = 0.0;
         Date date = null;
+        String category = "";
         try {
             final Integer index = Integer.parseInt(args.trim().split(" ")[0]);
             if (args.indexOf(Constants.UPDATE_COMMAND_AMOUNT_PARAM) > 0) {
@@ -216,8 +244,15 @@ public class Parser {
                 }
                 usage = temp;
             }
+            if (args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                category = temp;
+            }
 
-            return new UpdateCommand(index, usage, amount, date);
+            return new UpdateCommand(index, usage, amount, date,category);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,7 +278,7 @@ public class Parser {
             return new IncorrectCommand(e.getMessage());
         }
     }
-  
+
     private Command createViewBudgetCommand(String args) {
         Command finalCommand;
         try {
@@ -253,4 +288,119 @@ public class Parser {
         }
         return finalCommand;
     }
+
+    private Command prepareReportCommand(String args) {
+        Command finalCommand;
+        try {
+            String temp = "";
+            Date startDate = null;
+            Date endDate = null;
+            if (args.indexOf(Constants.REPORT_COMMAND_START_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.REPORT_COMMAND_START_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                startDate = sdf.parse(temp.trim());
+            }
+
+            if (args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                endDate = sdf.parse(temp.trim());
+            }
+
+            finalCommand = new ReportCommand(null, startDate, endDate);
+        } catch (Exception e) {
+            finalCommand = new IncorrectCommand("Incorrect Report Command");
+        }
+        return finalCommand;
+    }
+
+    public void generateReport(List<Transaction> transactionList, double totalAmount, String timePeriod) {
+        String excelFilePath = "TransactionReportSummary.xlsx";
+        try {
+
+
+            Workbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = (XSSFSheet) workbook.createSheet("Summary");
+            writeHeaderLine(sheet);
+            writeDataLines(transactionList, workbook, sheet, totalAmount, timePeriod);
+
+            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+            workbook.write(outputStream);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeHeaderLine(XSSFSheet sheet) {
+
+        Row headerRow = sheet.createRow(0);
+
+        Cell headerCell = headerRow.createCell(0);
+        headerCell.setCellValue("Date");
+
+        headerCell = headerRow.createCell(1);
+        headerCell.setCellValue("Usage");
+
+        headerCell = headerRow.createCell(2);
+        headerCell.setCellValue("Category");
+
+        headerCell = headerRow.createCell(3);
+        headerCell.setCellValue("Amount");
+
+    }
+
+    private void writeDataLines(List<Transaction> transactions, Workbook workbook,
+                                XSSFSheet sheet, double totalAmount, String timePeriod) {
+        int rowCount = 1;
+
+        Row row = null;
+        Cell cell = null;
+
+
+        for (Transaction transaction : transactions) {
+            String date = "";
+            final String usage = transaction.getDescription();
+            final double amount = transaction.getAmount();
+            final String category = transaction.getCategory();
+            if (transaction.getDate() != null) {
+                date = sdf.format(transaction.getDate());
+            }
+            row = sheet.createRow(rowCount++);
+
+            int columnCount = 0;
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(date);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(usage);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(category);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue("$" + amount);
+        }
+        rowCount++;
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(2);
+        cell.setCellValue("Total :");
+        cell = row.createCell(3);
+        cell.setCellValue("$" + totalAmount);
+
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(0);
+        cell.setCellValue("Generated on :" + sdfFull.format(new Date()));
+
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(0);
+        cell.setCellValue("Generate Period : " + timePeriod);
+
+    }
+
+
 }

@@ -28,7 +28,7 @@ public class Ui {
     public static final int DISPLAYED_INDEX_OFFSET = 1;
 
     // Format of indexed list item.
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+    private static final String MESSAGE_INDEXED_LIST_ITEM = " %1$d. %2$s";
 
     private static final String DIVIDER = "***************************************************";
 
@@ -80,6 +80,7 @@ public class Ui {
 
 
     public void showToUser(String... message) {
+        out.println(LINE_PREFIX);
         for (String m : message) {
             out.println(LINE_PREFIX + m.replace("\n", LS + LINE_PREFIX));
         }
@@ -94,7 +95,7 @@ public class Ui {
     }
 
     /**
-     * Shows a list of persons to the user, formatted as an indexed list.
+     * Shows a list of expenses to the user, formatted as an indexed list.
      * Private contact details are hidden.
      */
     private void showTransactionListView(List<? extends ReadOnlyTransaction> transactions) {
@@ -133,5 +134,4 @@ public class Ui {
     private static String getIndexedListItem(int visibleIndex, String listItem) {
         return String.format(MESSAGE_INDEXED_LIST_ITEM, visibleIndex, listItem);
     }
-
 }

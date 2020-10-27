@@ -23,7 +23,7 @@ public class TotalCommandTest {
     public void execute_total() {
         TotalCommand command = new TotalCommand();
         command.setData(transactionList, lastShownList);
-        assertEquals("The total amount you have spent so far is $62.00", command.execute().feedbackToUser);
+        assertEquals("The total amount you have spent so far is $221.10", command.execute().feedbackToUser);
     }
 
 }

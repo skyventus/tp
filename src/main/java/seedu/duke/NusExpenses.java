@@ -111,5 +111,4 @@ public class NusExpenses {
     private Storage initializeStorage() throws InvalidStorageFilePathException {
         return new Storage();
     }
-
 }
