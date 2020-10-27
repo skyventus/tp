@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Storage {
 
@@ -18,6 +20,7 @@ public class Storage {
      */
     public static final String DEFAULT_FILENAME = "mytransaction.txt";
     public static final String DEFAULT_FILE_DIRECTORY = "expenses";
+    private static Logger logger = Logger.getLogger("Foo");
 
     public String fileDirectory;
     public String filePath;
@@ -28,6 +31,7 @@ public class Storage {
 
         File directory = new File(fileDirectory);
         if (!directory.exists()) {
+            logger.log(Level.INFO, "No directory found, creating " + fileDirectory + " now");
             directory.mkdir();
         }
         this.filePath = directory.getAbsolutePath() + "\\" + DEFAULT_FILENAME;
@@ -45,11 +49,15 @@ public class Storage {
     public void save(TransactionList transactionsList) throws StorageOperationException {
         FileWriter fw;
         try {
+            logger.log(Level.INFO, "Saving transaction in progress...");
             fw = new FileWriter(filePath);
             List<String> encodedTransactionList = TransactionListEncoded.encodeTransactionList(transactionsList);
             for (String s : encodedTransactionList) {
                 fw.write(s);
             }
+
+            logger.log(Level.INFO, "Saving completed.");
+
             fw.close();
         } catch (IOException ioe) {
             throw new StorageOperationException("Error writing to file: " + filePath);
@@ -68,10 +76,13 @@ public class Storage {
 
         if (!Files.exists(Paths.get(filePath))
                 || !Files.isRegularFile(Paths.get(filePath))) {
+            logger.log(Level.WARNING, "No such file exist.");
+
             return new TransactionList();
         }
 
         try {
+            logger.log(Level.INFO, "Loading all the expenses...");
             return TransactionListDecoded.decodeTransactions(Files.readAllLines(Paths.get(filePath)));
         } catch (FileNotFoundException e) {
             throw new AssertionError("A non-existent file scenario is already handled earlier.");

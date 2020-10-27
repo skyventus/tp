@@ -21,6 +21,7 @@ public class UpdateCommand extends Command {
 
     public UpdateCommand(int index, String description, double amount,
                          Date date,String category) {
+        assert index >= 0;
         setTargetIndex(index);
         this.toUpdate = new Transaction(description, amount, date,category);
     }
