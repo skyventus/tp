@@ -186,7 +186,26 @@ public class Parser {
     private Command createViewCommand(String args) {
         Command finalCommand;
         try {
-            finalCommand = new ViewCommand();
+            String temp = "";
+            Date startDate = null;
+            Date endDate = null;
+            if (args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                startDate = sdf.parse(temp.trim());
+            }
+
+            if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                endDate = sdf.parse(temp.trim());
+            }
+
+            finalCommand = new ViewCommand(startDate,endDate);
         } catch (Exception e) {
             finalCommand = new IncorrectCommand("Incorrect View Command");
         }

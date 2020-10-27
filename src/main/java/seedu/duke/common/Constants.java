@@ -17,6 +17,8 @@ public class Constants {
     public static final String UPDATE_COMMAND_CATEGORY_PARAM = "/c";
     public static final String REPORT_COMMAND_START_DATE_PARAM = "/sd";
     public static final String REPORT_COMMAND_END_DATE_PARAM = "/ed";
+    public static final String VIEW_COMMAND_START_DATE_PARAM = "/sd";
+    public static final String VIEW_COMMAND_END_DATE_PARAM = "/ed";
 
 
 }

@@ -47,44 +47,67 @@ public class TransactionList implements Iterable<Transaction> {
         }
     }
 
+    public List<Transaction> getTransactionsWithinPeriod(Date startDate, Date endDate) {
+        List<Transaction> requiredPeriodTransaction = new ArrayList<>();
+        if (startDate != null || endDate != null) {
+            for (Transaction transaction : internalTransactionList) {
+                if (startDate != null && endDate != null && transaction.getDate() != null) {
+                    if (transaction.getDate().after(startDate) && transaction.getDate().before(endDate)) {
+                        requiredPeriodTransaction.add(transaction);
+                    }
+                } else if (startDate != null && transaction.getDate() != null) {
+                    if (transaction.getDate().after(startDate)) {
+                        requiredPeriodTransaction.add(transaction);
+                    }
+
+                } else if (endDate != null && transaction.getDate() != null) {
+                    if (transaction.getDate().before(endDate)) {
+                        requiredPeriodTransaction.add(transaction);
+                    }
+                }
+            }
+        } else {
+            requiredPeriodTransaction = internalTransactionList;
+        }
+        return requiredPeriodTransaction;
+    }
+
+    public String getDatePeriodString(Date startDate, Date endDate) {
+        String timePeriod = "";
+        Date earlyStartDate = new Date();
+        List<Transaction> requiredPeriodTransaction = getTransactionsWithinPeriod(startDate, endDate);
+        for (Transaction transaction : requiredPeriodTransaction) {
+            if (startDate != null && endDate != null && transaction.getDate() != null) {
+                timePeriod = Parser.sdf.format(startDate) + " - " + Parser.sdf.format(endDate);
+            } else if (startDate != null && transaction.getDate() != null) {
+                if (earlyStartDate.after(transaction.getDate())) {
+                    earlyStartDate = transaction.getDate();
+                }
+                timePeriod = "Every Transaction After " + Parser.sdf.format(startDate);
+            } else if (endDate != null && transaction.getDate() != null) {
+
+                if (earlyStartDate.after(transaction.getDate())) {
+                    earlyStartDate = transaction.getDate();
+                }
+                timePeriod = "Every Transaction Before " + Parser.sdf.format(endDate);
+            }
+        }
+        if (startDate == null && endDate == null) {
+            timePeriod = "All Time Transactions";
+        }
+        return timePeriod;
+    }
+
     public void generateReport(String exportPath, Date startDate, Date endDate) {
         Parser parser = new Parser();
-        List<Transaction> requiredPeriodTransaction = new ArrayList<>();
+        List<Transaction> requiredPeriodTransaction = getTransactionsWithinPeriod(startDate, endDate);
         String timePeriod = "";
         Date earlyStartDate = new Date();
         Date lateEndDate = new Date();
         try {
 
-            if (startDate != null || endDate != null) {
-                for (Transaction transaction : internalTransactionList) {
-                    if (startDate != null && endDate != null && transaction.getDate() != null) {
-                        if (transaction.getDate().after(startDate) && transaction.getDate().before(endDate)) {
-                            requiredPeriodTransaction.add(transaction);
-                        }
-                        timePeriod = Parser.sdf.format(startDate) + " - " + Parser.sdf.format(endDate);
-                    } else if (startDate != null && transaction.getDate() != null) {
-                        if (transaction.getDate().after(startDate)) {
-                            requiredPeriodTransaction.add(transaction);
-                        }
-                        if (earlyStartDate.after(transaction.getDate())) {
-                            earlyStartDate = transaction.getDate();
-                        }
+            timePeriod = getDatePeriodString(startDate, endDate);
 
-                        timePeriod = "Every Transaction After " + Parser.sdf.format(startDate);
-                    } else if (endDate != null && transaction.getDate() != null) {
-                        if (transaction.getDate().before(endDate)) {
-                            requiredPeriodTransaction.add(transaction);
-                        }
-
-                        if (earlyStartDate.after(transaction.getDate())) {
-                            earlyStartDate = transaction.getDate();
-                        }
-                        timePeriod = "Every Transaction Until " + Parser.sdf.format(endDate);
-                    }
-                }
-            } else {
-                requiredPeriodTransaction = internalTransactionList;
-            }
             parser.generateReport(requiredPeriodTransaction, getTotalAmount(requiredPeriodTransaction), timePeriod);
         } catch (Exception e) {
             System.out.println(e.getMessage());

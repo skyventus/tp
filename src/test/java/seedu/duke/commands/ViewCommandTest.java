@@ -38,7 +38,7 @@ public class ViewCommandTest {
 
         String result = command.execute().feedbackToUser;
 
-        assertEquals("Above are all transaction entered.", result);
+        assertEquals("Displaying : All Time Transactions \nAbove are all transaction entered.", result);
 
     }
 
