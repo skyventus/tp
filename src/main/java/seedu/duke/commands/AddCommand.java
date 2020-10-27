@@ -5,10 +5,14 @@ import seedu.duke.data.Transaction;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New transaction added.";
+
+    private static Logger logger = Logger.getLogger("Foo");
 
     public static final String COMMAND_WORD = "add";
 
@@ -22,6 +26,7 @@ public class AddCommand extends Command {
 
     public AddCommand(String description, double amount,
                       Date date, String category) {
+        logger.log(Level.INFO, "Executing Add Command...");
         this.toAdd = new Transaction(description, amount, date,category);
     }
 
