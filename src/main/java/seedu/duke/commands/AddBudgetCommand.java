@@ -19,7 +19,6 @@ public class AddBudgetCommand extends Command {
         this.toAdd = new Budget(category, description, amount);
     }
 
-
     @Override
     public CommandResult execute() {
         try {

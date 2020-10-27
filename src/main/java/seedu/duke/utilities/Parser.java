@@ -28,15 +28,11 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    //public static final Pattern BASIC_COMMAND_FORMAT =
-    // Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)",Pattern.CASE_INSENSITIVE);
-    //public static final Pattern ADD_COMMAND_FORMAT =
-    // Pattern.compile("(?<usage>\\S+)(?<arguments>.*)");
-
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})(?<date>.*)",
+            Pattern.compile("(?<description>\\s?[\\w+]*)(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s\\d{4}-{1}"
+                            + "\\d{2}-{1}\\d{2})?(?<category>\\s\\/{1}c{1}\\s{1}[a-zA-Z]+)?",
                     Pattern.CASE_INSENSITIVE);
     public static final Pattern UPDATE_COMMAND_FORMAT =
             Pattern.compile("(?<index>^\\d$)(?<usage>^\\\\d$)(?<date>.*)",
@@ -52,7 +48,8 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, userInput,
+                    HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord").toLowerCase();
@@ -93,50 +90,46 @@ public class Parser {
         }
     }
 
-    //    private Command createAddCommand(String args) {
-    //        Command finalCommand;
-    //        String usage = "";
-    //        Double amount = 0.0;
-    //        String date = "";
-    //        try {
-    //            usage = args.split("\\$")[0];
-    //            String amount1 = args.substring(args.indexOf("$") + 1);
-    //            String everythingAfterSign = amount1.trim();
-    //            if (everythingAfterSign.indexOf(" ") != -1) {
-    //                amount1 = everythingAfterSign.split(" ")[0];
-    //                date = everythingAfterSign.split(" ")[1];
-    //            }
-    //            amount = Double.parseDouble(amount1);
-    //            finalCommand = new AddCommand(usage, amount, date);
-    //        } catch (Exception e) {
-    //            e.printStackTrace();
-    //            finalCommand = new IncorrectCommand("createAddCommand");
-    //        }
-    //        return finalCommand;
-    //  }
-
     private Command prepareAdd(String args) {
         final Matcher matcher = ADD_COMMAND_FORMAT.matcher(args.trim());
+
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand("Incorrect Add Command");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
         try {
             String dateString = matcher.group("date");
-            Date date = null;
-            if (!dateString.isEmpty()) {
+            Date date;
+            if (!(dateString == null || dateString.isEmpty())) {
                 date = sdf.parse(dateString);
+            } else {
+                date = null;
             }
+            String categoryString = matcher.group("category");
+            String category;
+            if (!(categoryString == null || categoryString.isEmpty())) {
+                categoryString = categoryString.substring(categoryString.indexOf("/") + 2).trim();
+                category = categoryString;
+            } else {
+                category = "";
+            }
+
             return new AddCommand(
                     matcher.group("description").trim(),
 
                     Double.parseDouble(matcher.group("amount").replace("$", "")),
 
-                    date
+                    date,
+
+                    category.toUpperCase()
 
             );
         } catch (Exception e) {
-            return new IncorrectCommand(e.getMessage());
+            System.out.println("Inside PrepareAdd");
+            e.printStackTrace();
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, args.trim(),
+                    HelpCommand.MESSAGE_USAGE));
         }
     }
 
@@ -184,13 +177,14 @@ public class Parser {
         }
         return finalCommand;
     }
-  
+
     private Command prepareUpdate(String args) {
 
         String temp = "";
         String usage = "";
         double amount = 0.0;
         Date date = null;
+        String category = "";
         try {
             final Integer index = Integer.parseInt(args.trim().split(" ")[0]);
             if (args.indexOf(Constants.UPDATE_COMMAND_AMOUNT_PARAM) > 0) {
@@ -216,8 +210,15 @@ public class Parser {
                 }
                 usage = temp;
             }
+            if (args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                category = temp;
+            }
 
-            return new UpdateCommand(index, usage, amount, date);
+            return new UpdateCommand(index, usage, amount, date,category);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -243,7 +244,7 @@ public class Parser {
             return new IncorrectCommand(e.getMessage());
         }
     }
-  
+
     private Command createViewBudgetCommand(String args) {
         Command finalCommand;
         try {
