@@ -20,9 +20,8 @@ public class TotalCommand extends Command {
     public CommandResult execute() {
         double totalAmount = 0.00;
         List<Transaction> allTransactions = transactionList.getTransactionList();
-        for (Transaction transaction : allTransactions) {
-            totalAmount = totalAmount + transaction.getAmount();
-        }
+        totalAmount = transactionList.getTotalAmount(allTransactions);
+
         return new CommandResult(
                 String.format("The total amount you have spent so far is $%.2f", totalAmount),
                 allTransactions);
