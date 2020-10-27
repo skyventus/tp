@@ -1,10 +1,17 @@
 package seedu.duke.utilities;
 
 
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import seedu.duke.commands.AddCommand;
 import seedu.duke.commands.DeleteCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.IncorrectCommand;
+import seedu.duke.commands.ReportCommand;
 import seedu.duke.commands.SearchCommand;
 import seedu.duke.commands.TotalCommand;
 import seedu.duke.commands.UpdateCommand;
@@ -14,10 +21,14 @@ import seedu.duke.commands.HelpCommand;
 import seedu.duke.commands.AddBudgetCommand;
 import seedu.duke.commands.ViewBudgetCommand;
 import seedu.duke.common.Constants;
+import seedu.duke.data.Transaction;
 
+
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,6 +55,7 @@ public class Parser {
                     Pattern.CASE_INSENSITIVE);
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat sdfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -83,6 +95,9 @@ public class Parser {
 
         case UpdateCommand.COMMAND_WORD:
             return prepareUpdate(arguments);
+
+        case ReportCommand.COMMAND_WORD:
+            return prepareReportCommand(arguments);
 
         case HelpCommand.COMMAND_WORD: // Fallthrough
         default:
@@ -254,4 +269,119 @@ public class Parser {
         }
         return finalCommand;
     }
+
+    private Command prepareReportCommand(String args) {
+        Command finalCommand;
+        try {
+            String temp = "";
+            Date startDate = null;
+            Date endDate = null;
+            if (args.indexOf(Constants.REPORT_COMMAND_START_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.REPORT_COMMAND_START_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                startDate = sdf.parse(temp.trim());
+            }
+
+            if (args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                endDate = sdf.parse(temp.trim());
+            }
+
+            finalCommand = new ReportCommand(null, startDate, endDate);
+        } catch (Exception e) {
+            finalCommand = new IncorrectCommand("Incorrect Report Command");
+        }
+        return finalCommand;
+    }
+
+    public void generateReport(List<Transaction> transactionList, double totalAmount, String timePeriod) {
+        String excelFilePath = "TransactionReportSummary.xlsx";
+        try {
+
+
+            Workbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = (XSSFSheet) workbook.createSheet("Summary");
+            writeHeaderLine(sheet);
+            writeDataLines(transactionList, workbook, sheet, totalAmount, timePeriod);
+
+            FileOutputStream outputStream = new FileOutputStream(excelFilePath);
+            workbook.write(outputStream);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void writeHeaderLine(XSSFSheet sheet) {
+
+        Row headerRow = sheet.createRow(0);
+
+        Cell headerCell = headerRow.createCell(0);
+        headerCell.setCellValue("Date");
+
+        headerCell = headerRow.createCell(1);
+        headerCell.setCellValue("Usage");
+
+        headerCell = headerRow.createCell(2);
+        headerCell.setCellValue("Category");
+
+        headerCell = headerRow.createCell(3);
+        headerCell.setCellValue("Amount");
+
+    }
+
+    private void writeDataLines(List<Transaction> transactions, Workbook workbook,
+                                XSSFSheet sheet, double totalAmount, String timePeriod) {
+        int rowCount = 1;
+
+        Row row = null;
+        Cell cell = null;
+
+
+        for (Transaction transaction : transactions) {
+            String date = "";
+            final String usage = transaction.getDescription();
+            final double amount = transaction.getAmount();
+            final String category = transaction.getCategory();
+            if (transaction.getDate() != null) {
+                date = sdf.format(transaction.getDate());
+            }
+            row = sheet.createRow(rowCount++);
+
+            int columnCount = 0;
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(date);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(usage);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue(category);
+
+            cell = row.createCell(columnCount++);
+            cell.setCellValue("$" + amount);
+        }
+        rowCount++;
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(2);
+        cell.setCellValue("Total :");
+        cell = row.createCell(3);
+        cell.setCellValue("$" + totalAmount);
+
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(0);
+        cell.setCellValue("Generated on :" + sdfFull.format(new Date()));
+
+        row = sheet.createRow(rowCount++);
+        cell = row.createCell(0);
+        cell.setCellValue("Generate Period : " + timePeriod);
+
+    }
+
+
 }
