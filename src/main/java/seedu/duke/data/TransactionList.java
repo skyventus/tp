@@ -27,14 +27,18 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     public void addTransaction(Transaction transaction) {
+        assert transaction != null : "transaction should not be null object";
         internalTransactionList.add(transaction);
     }
 
     public void removeTransaction(ReadOnlyTransaction toRemove) throws TransactionNotFound {
+        assert toRemove != null : "ReadOnlyTransaction should not be null object";
         internalTransactionList.remove(toRemove);
     }
 
     public void updateTransaction(ReadOnlyTransaction toUpdate, int index) throws TransactionNotFound {
+        assert toUpdate != null : "Transaction should not be null object";
+
         ReadOnlyTransaction target = internalTransactionList.get(index - 1);
         if (toUpdate.getAmount() > 0.0) {
             target.setAmount(toUpdate.getAmount());
@@ -127,6 +131,7 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     public double getTotalAmount(List<Transaction> transactions) {
+        assert transactions != null;
         double totalAmount = 0.0;
         for (Transaction transaction : transactions) {
             totalAmount = totalAmount + transaction.getAmount();

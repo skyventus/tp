@@ -23,6 +23,7 @@ public class BudgetList implements Iterable<Budget> {
     }
 
     public void addBudget(Budget budget) {
+        assert budget != null;
         internalBudgetList.add(budget);
     }
 
