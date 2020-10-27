@@ -26,7 +26,7 @@ public class SearchCommandTest {
         SearchCommand command2 = new SearchCommand("rice");
         command2.setData(transactionList, lastShownList);
 
-        assertEquals("3 transactions listed!", command2.execute().feedbackToUser);
+        assertEquals("2 transactions listed!", command2.execute().feedbackToUser);
 
     }
 }

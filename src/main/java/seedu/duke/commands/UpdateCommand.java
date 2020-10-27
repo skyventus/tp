@@ -20,9 +20,9 @@ public class UpdateCommand extends Command {
     private final Transaction toUpdate;
 
     public UpdateCommand(int index, String description, double amount,
-                         Date date) {
+                         Date date,String category) {
         setTargetIndex(index);
-        this.toUpdate = new Transaction(description, amount, date);
+        this.toUpdate = new Transaction(description, amount, date,category);
     }
 
     @Override
