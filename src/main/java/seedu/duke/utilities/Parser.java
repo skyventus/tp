@@ -1,7 +1,6 @@
 package seedu.duke.utilities;
 
 
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -42,18 +41,22 @@ public class Parser {
     public static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADD_COMMAND_FORMAT =
-            Pattern.compile("(?<description>\\s?[a-zA-Z\\s\\S]+)"
-                            + "(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s\\d{4}-{1}"
-                            + "\\d{2}-{1}\\d{2})?(?<category>\\s\\/{1}c{1}\\s{1}[a-zA-Z]+)?",
-                    Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<description>\\s?[a-zA-Z\\s\\S]+)(?<amount>\\s\\${1}\\d+\\.?\\d{0,2}){1}(?<date>\\s"
+                            + "\\d{4}-{1}\\d{2}-{1}\\d{2})?(?<category>\\s\\/{1}c{1}\\s{1}[a-zA-Z]+)?",
+                            Pattern.CASE_INSENSITIVE);
     public static final Pattern UPDATE_COMMAND_FORMAT =
             Pattern.compile("(?<index>^\\d$)(?<usage>^\\\\d$)(?<date>.*)",
                     Pattern.CASE_INSENSITIVE);
     public static final Pattern SEARCH_COMMAND_FORMAT =
-            Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)",Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<keyword>^[a-zA-Z0-9_]+$)", Pattern.CASE_INSENSITIVE);
     public static final Pattern ADDBUDGET_COMMAND_FORMAT =
             Pattern.compile("(?<category>[^/]*)(?<description>[^$]*)(?<amount>\\${1}\\d+\\.?\\d{0,2})",
                     Pattern.CASE_INSENSITIVE);
+
+    public static final Pattern VIEW_COMMAND_CATEGORY_FILTER_FORMAT = Pattern.compile("(?<categoryFilter>[a-zA-Z]+$)");
+    public static final Pattern VIEW_COMMAND_DATE_FILTER_FORMAT = Pattern.compile("(?<dateFilter1>\\/{1}s{1}d{1})\\s{1}"
+            + "(?<startDate>\\d{4}-{1}\\d{2}-{1}\\d{2})\\s{1}(?<dateFilter2>\\/{1}e{1}d{1})\\s{1}(?<endDate>\\d{4}-{1}"
+            + "\\d{2}-{1}\\d{2})$");
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat sdfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -185,32 +188,40 @@ public class Parser {
     }
 
     private Command createViewCommand(String args) {
+        final Matcher categoryMatcher = VIEW_COMMAND_CATEGORY_FILTER_FORMAT.matcher(args.trim());
+        final Matcher dateMatcher = VIEW_COMMAND_DATE_FILTER_FORMAT.matcher(args.trim());
         Command finalCommand;
         try {
-            String temp = "";
-            Date startDate = null;
-            Date endDate = null;
-            if (args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) > 0) {
-                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) + 3);
-                if (temp.indexOf("/") > 0) {
-                    temp = temp.substring(0, temp.indexOf("/"));
-                }
-                startDate = sdf.parse(temp.trim());
-            }
+            if (categoryMatcher.matches()) {
 
-            if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
-                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) + 3);
-                if (temp.indexOf("/") > 0) {
-                    temp = temp.substring(0, temp.indexOf("/"));
-                }
-                endDate = sdf.parse(temp.trim());
-            }
+                return new ViewCommand(categoryMatcher.group("categoryFilter").trim());
 
-            finalCommand = new ViewCommand(startDate,endDate);
+            } else if (dateMatcher.matches()) {
+                String temp = "";
+                Date startDate = null;
+                Date endDate = null;
+                if (args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) > 0) {
+                    temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) + 3);
+                    if (temp.indexOf("/") > 0) {
+                        temp = temp.substring(0, temp.indexOf("/"));
+                    }
+                    startDate = sdf.parse(temp.trim());
+                }
+
+                if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
+                    temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) + 3);
+                    if (temp.indexOf("/") > 0) {
+                        temp = temp.substring(0, temp.indexOf("/"));
+                    }
+                    endDate = sdf.parse(temp.trim());
+                }
+
+                return new ViewCommand(startDate, endDate);
+            }
         } catch (Exception e) {
             finalCommand = new IncorrectCommand("Incorrect View Command");
         }
-        return finalCommand;
+        return new ViewCommand(null, null);
     }
 
     private Command prepareUpdate(String args) {
@@ -253,7 +264,7 @@ public class Parser {
                 category = temp;
             }
 
-            return new UpdateCommand(index, usage, amount, date,category);
+            return new UpdateCommand(index, usage, amount, date, category);
 
         } catch (Exception e) {
             e.printStackTrace();

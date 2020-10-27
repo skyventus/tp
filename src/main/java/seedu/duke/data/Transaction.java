@@ -67,6 +67,16 @@ public class Transaction implements ReadOnlyTransaction {
         return this.category.toString().toUpperCase();
     }
 
+    public static boolean enumContains(String test) {
+
+        for (CategoryType categoryType : CategoryType.values()) {
+            if (categoryType.name().equals(test)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getDescription() {
         return description;
     }
