@@ -21,18 +21,17 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
 
         List<Transaction> allTransactions = transactionList.getTransactionList();
-        int count = 1;
-        for (Transaction transaction : allTransactions) {
-            StringBuilder output = new StringBuilder();
-            output.append(count + ".");
-            if (transaction.getDate() != null) {
-                output.append(Parser.sdf.format(transaction.getDate()) + " ");
-            }
-            output.append(transaction.getDescription() + " "
-                    + transaction.getAmount());
-            System.out.println(output.toString());
-            count++;
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        //        int count = 1;
+        //        for (Transaction transaction : allTransactions) {
+        //            StringBuilder output = new StringBuilder();
+        //            output.append(count + ". ");
+        //            output.append(transaction.getDescription() + " " + "$" + transaction.getAmount());
+        //            if (transaction.getDate() != null) {
+        //                output.append(Parser.sdf.format(transaction.getDate()) + " ");
+        //            }
+        //            System.out.println(output.toString());
+        //            count++;
+        //        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS), allTransactions);
     }
 }

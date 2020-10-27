@@ -99,14 +99,14 @@ public class Parser {
         try {
             String dateString = matcher.group("date");
             Date date;
-            if (!(dateString==null || dateString.isEmpty())) {
+            if (!(dateString == null || dateString.isEmpty())) {
                 date = sdf.parse(dateString);
             }else{
                 date = null;
             }
             String categoryString = matcher.group("category");
             String category;
-            if(!(categoryString==null || categoryString.isEmpty())){
+            if(!(categoryString == null || categoryString.isEmpty())){
                 categoryString = categoryString.substring(categoryString.indexOf("/")+2).trim();
                 category = categoryString;
             }else{

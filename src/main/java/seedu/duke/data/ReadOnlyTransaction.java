@@ -10,6 +10,8 @@ public interface ReadOnlyTransaction {
 
     Date getDate();
 
+    String getCategory();
+
     enum CategoryType {
         ENTERTAINMENT,
         FITNESS,
@@ -30,17 +32,6 @@ public interface ReadOnlyTransaction {
 
     void setCategory(ReadOnlyTransaction.CategoryType categoryType);
 
-    default String getAsTextShowAll() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(" Description: ")
-                .append(getDescription());
+    String getAsTextShowAll();
 
-        builder.append(" Amount: $")
-                .append(getAmount());
-
-        builder.append(" Date: ")
-                .append(getDate());
-
-        return builder.toString();
-    }
 }
