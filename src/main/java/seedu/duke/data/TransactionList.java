@@ -49,6 +49,9 @@ public class TransactionList implements Iterable<Transaction> {
         if (toUpdate.getDate() != null) {
             target.setDate(toUpdate.getDate());
         }
+        if (toUpdate.getCategory() != null && !toUpdate.getCategory().isEmpty()) {
+            target.setCategory(ReadOnlyTransaction.CategoryType.valueOf(toUpdate.getCategory()));
+        }
     }
 
     public List<Transaction> getTransactionsByCategory(String category) {

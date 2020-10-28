@@ -15,7 +15,7 @@ public class UpdateCommand extends Command {
             + ": Update a transaction to the NUS Expenses Tracker.\n"
             + "Parameters: INDEX DESCRIPTION $AMOUNT DATE...\n"
             + "Example: " + COMMAND_WORD
-            + "update 1 /a 5 /u Dinner /d 2020-09-02";
+            + "update 1 /a 5 /u Dinner /d 2020-09-02 /c FOOD";
 
     private final Transaction toUpdate;
 
