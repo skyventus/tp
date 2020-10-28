@@ -266,8 +266,8 @@ public class Parser {
 
             return new UpdateCommand(index, usage, amount, date, category);
 
-        } catch(IllegalArgumentException argumentException){
-            return new IncorrectCommand("Incorrect update command: "+args.trim());
+        } catch (IllegalArgumentException argumentException) {
+            return new IncorrectCommand("Incorrect update command: " + args.trim());
         } catch (Exception e) {
             e.printStackTrace();
             return new IncorrectCommand(e.getMessage());
