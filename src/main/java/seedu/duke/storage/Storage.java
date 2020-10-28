@@ -51,14 +51,14 @@ public class Storage {
         FileWriter fw;
         assert transactionsList != null : "transactionsList shouldn't be null object";
         try {
-            logger.log(Level.INFO, "Saving transaction in progress...");
+//            logger.log(Level.INFO, "Saving transaction in progress...");
             fw = new FileWriter(filePath);
             List<String> encodedTransactionList = TransactionListEncoded.encodeTransactionList(transactionsList);
             for (String s : encodedTransactionList) {
                 fw.write(s);
             }
 
-            logger.log(Level.INFO, "Saving completed.");
+//            logger.log(Level.INFO, "Saving completed.");
 
             fw.close();
         } catch (IOException ioe) {

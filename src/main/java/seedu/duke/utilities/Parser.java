@@ -257,7 +257,7 @@ public class Parser {
                 usage = temp;
             }
             if (args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) > 0) {
-                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2);
+                temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2).trim();
                 if (temp.indexOf("/") > 0) {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
@@ -266,6 +266,8 @@ public class Parser {
 
             return new UpdateCommand(index, usage, amount, date, category);
 
+        } catch(IllegalArgumentException argumentException){
+            return new IncorrectCommand("Incorrect update command: "+args.trim());
         } catch (Exception e) {
             e.printStackTrace();
             return new IncorrectCommand(e.getMessage());
