@@ -36,4 +36,18 @@ public class Budget implements ReadOnlyBudget {
         this.category = category;
     }
 
+    public String getAsTextShowAll() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Budget Description: ")
+                .append(getDescription());
+
+        builder.append("Budget Amount: $")
+                .append(getAmount());
+
+        builder.append("Budget Category: ")
+                .append(getCategory());
+
+        return builder.toString();
+    }
+
 }
