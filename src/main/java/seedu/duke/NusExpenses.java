@@ -24,7 +24,7 @@ import seedu.duke.data.ReadOnlyBudget;
 public class NusExpenses {
 
     // Version info of the program.
-    public static final String VERSION = "NUS Expenses Tracker - Version 1.0";
+    public static final String VERSION = "NUS Expenses Tracker - Version 2.0";
 
     private Ui ui;
     //private Storage storage;
