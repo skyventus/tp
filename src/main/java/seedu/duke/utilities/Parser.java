@@ -54,9 +54,7 @@ public class Parser {
                     Pattern.CASE_INSENSITIVE);
 
     public static final Pattern VIEW_COMMAND_CATEGORY_FILTER_FORMAT = Pattern.compile("(?<categoryFilter>[a-zA-Z]+$)");
-//    public static final Pattern VIEW_COMMAND_DATE_FILTER_FORMAT = Pattern.compile("(?<dateFilter1>\\/{1}s{1}d{1})\\s{1}"
-//            + "(?<startDate>\\d{4}-{1}\\d{2}-{1}\\d{2})\\s{1}(?<dateFilter2>\\/{1}e{1}d{1})\\s{1}(?<endDate>\\d{4}-{1}"
-//            + "\\d{2}-{1}\\d{2})$");
+
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat sdfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

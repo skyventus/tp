@@ -68,16 +68,16 @@ public class TransactionList implements Iterable<Transaction> {
     public List<Transaction> getTransactionsWithinPeriod(Date startDate, Date endDate) {
         List<Transaction> requiredPeriodTransaction = new ArrayList<>();
         Calendar c = Calendar.getInstance();
-        if (startDate!=null) {
+        if (startDate != null) {
             c.setTime(startDate);
             c.add(Calendar.DATE, -1);
             startDate = c.getTime();
         }
-        if (endDate!=null) {// number of days to add
+        if (endDate != null) { // number of days to add
             c.setTime(endDate);
             c.add(Calendar.DATE, 1);
             endDate = c.getTime();
-        }// number of days to add
+        } // number of days to add
         if (startDate != null || endDate != null) {
             for (Transaction transaction : internalTransactionList) {
                 if (startDate != null && endDate != null && transaction.getDate() != null) {
