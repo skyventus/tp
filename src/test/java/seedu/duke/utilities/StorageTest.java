@@ -22,15 +22,6 @@ public class StorageTest {
         assertThrows(NullPointerException.class, () -> new Storage(null, null));
     }
 
-    @Test
-    public void load_validFormat() throws Exception {
-        SetupTransactionData setupData = new SetupTransactionData();
-        TransactionList actualTransaction = getStorage("expensesTest.txt").load();
-        TransactionList expectedTransaction = setupData.loadTransactionData();
-
-        assertEquals(expectedTransaction.getTransactionList().size(),actualTransaction.getTransactionList().size());
-    }
-
 
     private Storage getStorage(String fileName) throws Exception {
         return new Storage(TEST_DATA_FOLDER, fileName);
