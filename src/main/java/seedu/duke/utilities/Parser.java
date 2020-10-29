@@ -187,7 +187,6 @@ public class Parser {
 
     private Command createViewCommand(String args) {
         final Matcher categoryMatcher = VIEW_COMMAND_CATEGORY_FILTER_FORMAT.matcher(args.trim());
-
         Command finalCommand;
         try {
             if (categoryMatcher.matches()) {
@@ -281,10 +280,9 @@ public class Parser {
         try {
             return new AddBudgetCommand(
                     matcher.group("category").trim(),
-                    matcher.group("description").trim(),
+                    matcher.group("description").trim().replace("/", ""),
 
                     Double.parseDouble(matcher.group("amount").replace("$", ""))
-
             );
         } catch (Exception e) {
             return new IncorrectCommand(e.getMessage());
@@ -375,6 +373,7 @@ public class Parser {
 
 
         for (Transaction transaction : transactions) {
+            assert transactions != null : "Cannot export empty transactions";
             String date = "";
             final String usage = transaction.getDescription();
             final double amount = transaction.getAmount();

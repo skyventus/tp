@@ -38,13 +38,24 @@ public class Storage {
     }
 
     public Storage(String fileDirectory, String fileName) throws InvalidStorageFilePathException {
-        this.filePath = fileName;
-        this.fileDirectory = fileDirectory;
+
         assert !fileName.isBlank() : "file name should not be empty.";
+
+        this.fileDirectory = fileDirectory;
+
+
+        File directory = new File(fileDirectory);
+        if (!directory.exists()) {
+            logger.log(Level.INFO, "No directory found, creating " + fileDirectory + " now");
+            directory.mkdir();
+        }
 
         if (!isValidFilePath(fileName)) {
             throw new InvalidStorageFilePathException("Storage file should end with '.txt'");
         }
+
+        this.filePath = directory.getAbsolutePath() + "\\" + fileName;
+        System.out.println(this.filePath);
     }
 
     public void save(TransactionList transactionsList) throws StorageOperationException {
