@@ -11,10 +11,10 @@ public class ReportCommand extends Command {
     public static final String COMMAND_WORD = "report";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds a transaction to the NUS Expenses Tracker.\n"
-            + "Parameters: DESCRIPTION $AMOUNT DATE...\n"
+            + ": Generate transactions summary report and export as excel.\n"
+            + "Parameters: STARTDATE ENDDATE...\n"
             + "Example: " + COMMAND_WORD
-            + " Lunch at Com2 $4.50 14-Oct-2020";
+            + " /sd 2020-09-28 /ed 2020-09-30";
 
     private Date startDate;
     private Date endDate;

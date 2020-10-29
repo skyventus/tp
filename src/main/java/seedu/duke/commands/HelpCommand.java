@@ -11,12 +11,14 @@ public class HelpCommand extends Command {
         return new CommandResult(
                 AddCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + AddCommand.MESSAGE_USAGE
+                        + System.lineSeparator() + "\n" + UpdateCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + DeleteCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + SearchCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + ViewCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + TotalCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + AddBudgetCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + ViewBudgetCommand.MESSAGE_USAGE
+                        + System.lineSeparator() + "\n" + ReportCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + HelpCommand.MESSAGE_USAGE
                         + System.lineSeparator() + "\n" + ExitCommand.MESSAGE_USAGE
         );
