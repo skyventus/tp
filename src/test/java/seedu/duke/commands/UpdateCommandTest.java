@@ -18,7 +18,7 @@ public class UpdateCommandTest {
     private List<? extends ReadOnlyTransaction> lastShownList = Collections.emptyList();
 
     @Test
-    public void execute_update(){
+    public void execute_update() {
         UpdateCommand command = new UpdateCommand(4,"Menthol Mints",2.10,null,"Food");
         command.setData(transactionList, lastShownList);
         assertEquals("Transaction updated.", command.execute().feedbackToUser);
