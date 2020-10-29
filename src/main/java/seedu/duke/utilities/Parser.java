@@ -412,6 +412,4 @@ public class Parser {
         cell.setCellValue("Generate Period : " + timePeriod);
 
     }
-
-
 }
