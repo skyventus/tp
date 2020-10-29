@@ -54,9 +54,7 @@ public class Parser {
                     Pattern.CASE_INSENSITIVE);
 
     public static final Pattern VIEW_COMMAND_CATEGORY_FILTER_FORMAT = Pattern.compile("(?<categoryFilter>[a-zA-Z]+$)");
-    public static final Pattern VIEW_COMMAND_DATE_FILTER_FORMAT = Pattern.compile("(?<dateFilter1>\\/{1}s{1}d{1})\\s{1}"
-            + "(?<startDate>\\d{4}-{1}\\d{2}-{1}\\d{2})\\s{1}(?<dateFilter2>\\/{1}e{1}d{1})\\s{1}(?<endDate>\\d{4}-{1}"
-            + "\\d{2}-{1}\\d{2})$");
+
 
     public static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat sdfFull = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -189,14 +187,13 @@ public class Parser {
 
     private Command createViewCommand(String args) {
         final Matcher categoryMatcher = VIEW_COMMAND_CATEGORY_FILTER_FORMAT.matcher(args.trim());
-        final Matcher dateMatcher = VIEW_COMMAND_DATE_FILTER_FORMAT.matcher(args.trim());
         Command finalCommand;
         try {
             if (categoryMatcher.matches()) {
 
                 return new ViewCommand(categoryMatcher.group("categoryFilter").trim());
 
-            } else if (dateMatcher.matches()) {
+            } else {
                 String temp = "";
                 Date startDate = null;
                 Date endDate = null;
