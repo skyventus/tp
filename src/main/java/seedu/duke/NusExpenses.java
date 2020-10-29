@@ -8,6 +8,7 @@ import seedu.duke.commands.Command;
 import seedu.duke.commands.CommandResult;
 import seedu.duke.commands.ExitCommand;
 
+import seedu.duke.common.Constants;
 import seedu.duke.data.BudgetList;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.TransactionList;
@@ -61,6 +62,9 @@ public class NusExpenses {
             this.storage = initializeStorage();
             this.transactionList = storage.load();
             ui.showWelcomeMessage(VERSION);
+            if(this.transactionList!=null && !this.transactionList.getTransactionList().isEmpty()){
+                ui.showToUser(Constants.ADD_EXPENSE_REMINDER);
+            }
         } catch (InvalidStorageFilePathException e) {
             e.printStackTrace();
         } catch (IllegalValueException e) {
