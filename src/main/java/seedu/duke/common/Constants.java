@@ -20,5 +20,5 @@ public class Constants {
     public static final String VIEW_COMMAND_START_DATE_PARAM = "/sd";
     public static final String VIEW_COMMAND_END_DATE_PARAM = "/ed";
 
-
+    public static final String ADD_EXPENSE_REMINDER = "(￣▽￣)ノ Have you added an expense today? \n";
 }
