@@ -27,6 +27,8 @@ public class SetupTransactionData {
             this.transactionData3 = new Transaction("Corsair Keyboard", 200.00, null, "ENTERTAINMENT");
             this.transactionData4 = new Transaction("Menthol Mints", 2.10, null, "");
 
+
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
