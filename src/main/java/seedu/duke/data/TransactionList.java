@@ -55,6 +55,7 @@ public class TransactionList implements Iterable<Transaction> {
     }
 
     public List<Transaction> getTransactionsByCategory(String category) {
+        assert category != null : "Category should not be a null object";
         List<Transaction> transactionsAccordingToCategory = new ArrayList<>();
         for (Transaction transaction: internalTransactionList) {
             if (transaction.getCategory().equalsIgnoreCase(category)) {
