@@ -374,6 +374,7 @@ public class Parser {
 
 
         for (Transaction transaction : transactions) {
+            assert transactions != null : "Cannot export empty transactions";
             String date = "";
             final String usage = transaction.getDescription();
             final double amount = transaction.getAmount();
