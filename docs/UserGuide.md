@@ -69,13 +69,37 @@ Transaction deleted. <br/>
 ***************************************************
 
 ### View
-Format: view {category} <br/>
-Example: view MISC <br/>
+Format 1: view {category} <br/>
+Format 2: view /sd {date} /ed {date}
+Format 3: view /sd {date}
+Format 4: view /ed {date}
+Example 1: view MISC <br/>
 Output: <br/>
 1.  Description: lunch Amount: $3.0 Category: MISC
 2.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
 ***************************************************
 Displaying category: MISC 
+Above are all transaction entered.
+***************************************************
+Example 2: view /sd 2020-09-08 /ed 2020-09-10 <br/>
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : 2020-09-08 - 2020-09-10
+Above are all transaction entered.
+***************************************************
+Example 3: view /sd 2020-09-08
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : Every Transaction After 2020-09-08
+Above are all transaction entered.
+***************************************************
+Example 4: view /ed 2020-09-10
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : Every Transaction Before 2020-09-10
 Above are all transaction entered.
 ***************************************************
 

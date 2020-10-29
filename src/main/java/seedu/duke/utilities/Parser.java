@@ -280,10 +280,9 @@ public class Parser {
         try {
             return new AddBudgetCommand(
                     matcher.group("category").trim(),
-                    matcher.group("description").trim(),
+                    matcher.group("description").trim().replace("/", ""),
 
                     Double.parseDouble(matcher.group("amount").replace("$", ""))
-
             );
         } catch (Exception e) {
             return new IncorrectCommand(e.getMessage());
@@ -374,6 +373,7 @@ public class Parser {
 
 
         for (Transaction transaction : transactions) {
+            assert transactions != null : "Cannot export empty transactions";
             String date = "";
             final String usage = transaction.getDescription();
             final double amount = transaction.getAmount();
@@ -412,6 +412,4 @@ public class Parser {
         cell.setCellValue("Generate Period : " + timePeriod);
 
     }
-
-
 }
