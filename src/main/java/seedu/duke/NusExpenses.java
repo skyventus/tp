@@ -62,7 +62,7 @@ public class NusExpenses {
             this.storage = initializeStorage();
             this.transactionList = storage.load();
             ui.showWelcomeMessage(VERSION);
-            if(this.transactionList!=null && !this.transactionList.getTransactionList().isEmpty()){
+            if (this.transactionList != null && !this.transactionList.getTransactionList().isEmpty()) {
                 ui.showToUser(Constants.ADD_EXPENSE_REMINDER);
             }
         } catch (InvalidStorageFilePathException e) {
