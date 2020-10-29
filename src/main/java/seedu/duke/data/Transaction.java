@@ -20,7 +20,7 @@ public class Transaction implements ReadOnlyTransaction {
             categoryType = "MISC";
         }
 
-        this.category = CategoryType.valueOf(categoryType);
+        this.category = CategoryType.valueOf(categoryType.toUpperCase());
     }
 
     public double getAmount() {
