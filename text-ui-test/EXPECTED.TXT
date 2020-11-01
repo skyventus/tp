@@ -2,7 +2,7 @@
 [\\]***************************************************
 [\\]***************************************************
 [\\]Welcome to NUS Expenses Tracker!
-[\\]NUS Expenses Tracker - Version 1.0
+[\\]NUS Expenses Tracker - Version 2.0
 [\\]***************************************************
 [\\]Input command: [\\]
 [\\][Command entered:exit]

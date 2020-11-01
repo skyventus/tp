@@ -69,13 +69,37 @@ Transaction deleted. <br/>
 ***************************************************
 
 ### View
-Format: view {category} <br/>
-Example: view MISC <br/>
+Format 1: view {category} <br/>
+Format 2: view /sd {date} /ed {date}
+Format 3: view /sd {date}
+Format 4: view /ed {date}
+Example 1: view MISC <br/>
 Output: <br/>
 1.  Description: lunch Amount: $3.0 Category: MISC
 2.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
 ***************************************************
 Displaying category: MISC 
+Above are all transaction entered.
+***************************************************
+Example 2: view /sd 2020-09-08 /ed 2020-09-10 <br/>
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : 2020-09-08 - 2020-09-10
+Above are all transaction entered.
+***************************************************
+Example 3: view /sd 2020-09-08
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : Every Transaction After 2020-09-08
+Above are all transaction entered.
+***************************************************
+Example 4: view /ed 2020-09-10
+Output: <br/>
+1.  Description: dinner Amount: $4.0 Date: 2020-09-09 Category: MISC
+***************************************************
+Displaying : Every Transaction Before 2020-09-10
 Above are all transaction entered.
 ***************************************************
 
@@ -90,17 +114,23 @@ Output: <br/>
 ***************************************************
 
 ### Add Budget
-Format: budgetadd <description><amount><date><br/>
-Example: budgetadd daily/food $20.00 <br/>
+Format: budgetadd {category} {/description} {amount}<br/>
+Example: budgetadd daily /FOOD $20.00 <br/>
 Output: <br/>
 ***************************************************
-New transaction added<br/>
+New Budget has been added<br/>
 ***************************************************
 
 ### View Budget
-Format: budgetview {category} <br/>
-Example: budgetview MISC <br/>
+Format: budgetview <br/>
+Example: budgetview <br/>
 Output: <br/>
+DESCRIPTION: FOOD || Budget : $10.0 <br/>
+ Current Spending for CATEGORY FOOD is $0.0 <br/>
+ You expenses is on track. Good Job!
+***************************************************
+Above are all budgets entered.
+***************************************************
 
 ### Generate Report
 Format: report /sd <start date>(optional) /ed <end date> (optional)<br/>
@@ -112,6 +142,7 @@ Report exported successfully.
 ***************************************************
 
 ## Saving the data <br/>
+Saving is automatically after each command. It will be save into the
 expenses/mytransactions.txt is the directory where you can find the list of transactions being saved. <br/>
 
 ### Support or Contact <br/>
