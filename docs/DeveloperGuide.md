@@ -34,14 +34,15 @@ To manage all expenses faster than a typical excel budget spreadsheet.
 |***|v1.0|Student|exit the program|close the program|
 |***|v1.0|Student|add my daily expenses in the system|add the information into the system and keep track of my daily expenses|
 |***|v1.0|Student|view all my transactions by category in the system|be aware of what I have added|
-|***|v2.0|Student|update my expenses in the system|update the transactions|
-|***|v2.0|Student|Save all transactions to a readable text file and load from it|I can have a copy of transaction history.|
 |***|v1.0|Student|remove my daily expense in the system|remove the transactions|
 |***|v1.0|Student|search for an expenses with keyword in the system|filter out the expenses that I want to see|
 |***|v1.0|Student|see the total expense incurred in the system|be aware of my spending|
+|***|v2.0|Student|update my expenses in the system|update the transactions|
+|***|v2.0|Student|Save all transactions to a readable text file and load from it|I can have a copy of transaction history.|
 |**|v2.0|Student|categorize my daily expense in the system|better managed/view my expenses|
 |**|v2.0|Student|add a budget in the system||
 |**|v2.0|Student|view the budget in the system||
+|**|v2.0|Student|view the transactions in the system with a specific time period|I can find the specific transaction more easily|
 |**|v2.0|Student|generate and export a transactions report summary with a specific time period|keep a copy and view them outside the system|
 |*|v2.0|Student|make sure I input daily expenses|I can keep track of it|
 |*|v2.0|Student|view tips on saving money|have motivation to achieve my goal|

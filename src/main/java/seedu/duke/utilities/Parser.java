@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import seedu.duke.commands.AddCommand;
 import seedu.duke.commands.DeleteCommand;
+import seedu.duke.commands.DeleteBudgetCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.IncorrectCommand;
 import seedu.duke.commands.ReportCommand;
@@ -91,6 +92,9 @@ public class Parser {
 
         case ViewBudgetCommand.COMMAND_WORD:
             return createViewBudgetCommand(arguments);
+
+        case DeleteBudgetCommand.COMMAND_WORD :
+            return createDeleteBudgetCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -203,6 +207,7 @@ public class Parser {
                         temp = temp.substring(0, temp.indexOf("/"));
                     }
                     startDate = sdf.parse(temp.trim());
+                    assert startDate != null : "Date cannot be null after parse";
                 }
 
                 if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
@@ -211,6 +216,7 @@ public class Parser {
                         temp = temp.substring(0, temp.indexOf("/"));
                     }
                     endDate = sdf.parse(temp.trim());
+                    assert endDate != null : "Date cannot be null after parse";
                 }
 
                 return new ViewCommand(startDate, endDate);
@@ -251,14 +257,14 @@ public class Parser {
                 if (temp.indexOf("/") > 0) {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
-                usage = temp;
+                usage = temp.trim();
             }
             if (args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) > 0) {
                 temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2).trim();
                 if (temp.indexOf("/") > 0) {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
-                category = temp;
+                category = temp.trim().toUpperCase();
             }
 
             return new UpdateCommand(index, usage, amount, date, category);
@@ -266,8 +272,7 @@ public class Parser {
         } catch (IllegalArgumentException argumentException) {
             return new IncorrectCommand("Incorrect update command: " + args.trim());
         } catch (Exception e) {
-            e.printStackTrace();
-            return new IncorrectCommand(e.getMessage());
+            return new IncorrectCommand("Incorrect update command: " + e.getMessage());
         }
     }
 
@@ -275,7 +280,15 @@ public class Parser {
         final Matcher matcher = ADDBUDGET_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand("Incorrect Add Command");
+            return new IncorrectCommand("Incorrect Budget Add Command");
+        }
+        if (!matcher.group("category").toUpperCase().startsWith("D")
+                && !matcher.group("category").toUpperCase().startsWith("W")
+                && !matcher.group("category").toUpperCase().startsWith("M")) {
+            return new IncorrectCommand("Incorrect Budget Category");
+        }
+        if (!args.contains("/")) {
+            return new IncorrectCommand("Incorrect Budget Description");
         }
         try {
             return new AddBudgetCommand(
@@ -287,6 +300,17 @@ public class Parser {
         } catch (Exception e) {
             return new IncorrectCommand(e.getMessage());
         }
+    }
+
+    private Command createDeleteBudgetCommand(String args) {
+        Command finalCommand;
+        try {
+            int index = Integer.parseInt(args.trim());
+            finalCommand = new DeleteBudgetCommand(index);
+        } catch (Exception e) {
+            finalCommand = new IncorrectCommand("Incorrect Delete Budget Command");
+        }
+        return finalCommand;
     }
 
     private Command createViewBudgetCommand(String args) {
@@ -311,6 +335,7 @@ public class Parser {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
                 startDate = sdf.parse(temp.trim());
+                assert startDate != null : "Date cannot be null after parse";
             }
 
             if (args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) > 0) {
@@ -319,6 +344,7 @@ public class Parser {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
                 endDate = sdf.parse(temp.trim());
+                assert endDate != null : "Date cannot be null after parse";
             }
 
             finalCommand = new ReportCommand(null, startDate, endDate);
@@ -370,7 +396,6 @@ public class Parser {
 
         Row row = null;
         Cell cell = null;
-
 
         for (Transaction transaction : transactions) {
             assert transactions != null : "Cannot export empty transactions";
