@@ -18,7 +18,7 @@ public class BudgetListDecoded {
 
     private static Logger logger = Logger.getLogger("Foo");
 
-    public static BudgetList decodeBudget (List<String> encodedBudgets)
+    public static BudgetList decodeBudget(List<String> encodedBudgets)
             throws IllegalValueException {
         logger.log(Level.INFO, "Decoding your budget from the expenses file.");
         final List<Budget> decodedBudget = new ArrayList<>();
@@ -36,10 +36,10 @@ public class BudgetListDecoded {
             String date = budgetSplit[0].equals("-") ? "" : budgetSplit[0].trim();
 
             int catIndex = budgetText.indexOf(" ");
-            String category = budgetText.substring(0, catIndex );
+            String category = budgetText.substring(0, catIndex);
 
             int desIndex = budgetText.indexOf("\\");
-            String description = budgetText.substring(catIndex+1, desIndex);
+            String description = budgetText.substring(catIndex + 1, desIndex);
 
             //String description = budgetText.substring(
             //        budgetText.indexOf(budgetSplit[1]), budgetText.indexOf("\\") - 1).trim();

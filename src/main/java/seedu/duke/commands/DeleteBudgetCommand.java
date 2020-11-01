@@ -1,6 +1,8 @@
 package seedu.duke.commands;
 
-import seedu.duke.data.*;
+import seedu.duke.data.BudgetList;
+import seedu.duke.data.ReadOnlyBudget;
+
 
 public class DeleteBudgetCommand extends Command {
 
