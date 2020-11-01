@@ -125,8 +125,8 @@ New Budget has been added<br/>
 Format: budgetview <br/>
 Example: budgetview <br/>
 Output: <br/>
-DESCRIPTION: FOOD || Budget : $10.0 <br/>
- Current Spending for CATEGORY FOOD is $0.0 <br/>
+CATEGORY: DAILY || DESCRIPTION: FOOD || Budget : $50.0 <br/>
+ Current Spending TODAY for CATEGORY FOOD is $5.0 <br/>
  You expenses is on track. Good Job!
 ***************************************************
 Above are all budgets entered.
@@ -134,7 +134,8 @@ Above are all budgets entered.
 
 ### Generate Report
 Format: report /sd <start date>(optional) /ed <end date> (optional)<br/>
-Example: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 1: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 2: report
 Output: <br/>
 ***************************************************
 Report exported successfully.
