@@ -13,13 +13,13 @@ Big hello to Nus Expenses Tracker(NET). NET is an app for managing expenses, opt
 ## Features
 Help: List down all the sample command that can help user to get started <br/>
 Add: Transactions with any date/time and category attached to it e.g., add breakfast $5.00 10 Oct 2020 /c FOOD<br/>
-Update: Update transactions that user specified <br/>
+Update: Update transactions that user specified, can update transaction category, amount, description, date<br/>
 Total: Total transactions amount will be displayed e.g., The total amount you have spent so far is $13.90 <br/>
 Delete: Delete transactions that you specified <br/>
 View: View all the transactions that has been added <br/>
 Search: Find keywords in the transactions <br/>
 Add Budget: Budget with any date/time attached to it e.g., budgetadd daily/food $20.00 <br/>
-View Budget: View all the budget that has been added <br/>
+View Budget: View all the budget that has been added, can view budget by time period, with start date or end date <br/>
 Generate Report: Export data into an excel to show summary of transactions based on specified time period <br/>
 Exit: Exit the program <br/>
 
@@ -134,7 +134,8 @@ Above are all budgets entered.
 
 ### Generate Report
 Format: report /sd <start date>(optional) /ed <end date> (optional)<br/>
-Example: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 1: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 2: report
 Output: <br/>
 ***************************************************
 Report exported successfully.

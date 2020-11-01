@@ -203,6 +203,7 @@ public class Parser {
                         temp = temp.substring(0, temp.indexOf("/"));
                     }
                     startDate = sdf.parse(temp.trim());
+                    assert startDate != null : "Date cannot be null after parse";
                 }
 
                 if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
@@ -211,6 +212,7 @@ public class Parser {
                         temp = temp.substring(0, temp.indexOf("/"));
                     }
                     endDate = sdf.parse(temp.trim());
+                    assert endDate != null : "Date cannot be null after parse";
                 }
 
                 return new ViewCommand(startDate, endDate);
@@ -251,14 +253,14 @@ public class Parser {
                 if (temp.indexOf("/") > 0) {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
-                usage = temp;
+                usage = temp.trim();
             }
             if (args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) > 0) {
                 temp = args.substring(args.indexOf(Constants.UPDATE_COMMAND_CATEGORY_PARAM) + 2).trim();
                 if (temp.indexOf("/") > 0) {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
-                category = temp;
+                category = temp.trim().toUpperCase();
             }
 
             return new UpdateCommand(index, usage, amount, date, category);
@@ -266,8 +268,7 @@ public class Parser {
         } catch (IllegalArgumentException argumentException) {
             return new IncorrectCommand("Incorrect update command: " + args.trim());
         } catch (Exception e) {
-            e.printStackTrace();
-            return new IncorrectCommand(e.getMessage());
+            return new IncorrectCommand("Incorrect update command: " + e.getMessage());
         }
     }
 
@@ -311,6 +312,7 @@ public class Parser {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
                 startDate = sdf.parse(temp.trim());
+                assert startDate != null : "Date cannot be null after parse";
             }
 
             if (args.indexOf(Constants.REPORT_COMMAND_END_DATE_PARAM) > 0) {
@@ -319,6 +321,7 @@ public class Parser {
                     temp = temp.substring(0, temp.indexOf("/"));
                 }
                 endDate = sdf.parse(temp.trim());
+                assert endDate != null : "Date cannot be null after parse";
             }
 
             finalCommand = new ReportCommand(null, startDate, endDate);
@@ -370,7 +373,6 @@ public class Parser {
 
         Row row = null;
         Cell cell = null;
-
 
         for (Transaction transaction : transactions) {
             assert transactions != null : "Cannot export empty transactions";

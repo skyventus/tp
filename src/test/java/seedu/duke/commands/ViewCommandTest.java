@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ViewCommandTest {
     public static final String commandString = "view";
+    public static final String commandString2 = "view /sd 2020-09-28";
+    public static final String commandString3 = "view /ed 2020-09-28";
+
 
     private SetupTransactionData setupData = new SetupTransactionData();
     private TransactionList transactionList = setupData.loadTransactionData();
@@ -40,6 +43,21 @@ public class ViewCommandTest {
 
         assertEquals("Displaying : All Time Transactions \nAbove are all transaction entered.", result);
 
+        Command command2 = new Parser().parseCommand(commandString2);
+
+        command2.setData(transactionList, lastShownList);
+
+        String result2 = command2.execute().feedbackToUser;
+
+        assertEquals("Displaying : Every Transaction After 2020-09-28 \nAbove are all transaction entered.", result2);
+
+        Command command3 = new Parser().parseCommand(commandString3);
+
+        command3.setData(transactionList, lastShownList);
+
+        String result3 = command3.execute().feedbackToUser;
+
+        assertEquals("Displaying :  \nAbove are all transaction entered.", result3);
     }
 
 }
