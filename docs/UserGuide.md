@@ -125,8 +125,8 @@ New Budget has been added<br/>
 Format: budgetview <br/>
 Example: budgetview <br/>
 Output: <br/>
-DESCRIPTION: FOOD || Budget : $10.0 <br/>
- Current Spending for CATEGORY FOOD is $0.0 <br/>
+CATEGORY: DAILY || DESCRIPTION: FOOD || Budget : $50.0 <br/>
+ Current Spending TODAY for CATEGORY FOOD is $5.0 <br/>
  You expenses is on track. Good Job!
 ***************************************************
 Above are all budgets entered.

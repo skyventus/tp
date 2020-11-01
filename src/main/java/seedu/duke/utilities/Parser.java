@@ -8,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import seedu.duke.commands.AddCommand;
 import seedu.duke.commands.DeleteCommand;
+import seedu.duke.commands.DeleteBudgetCommand;
 import seedu.duke.commands.Command;
 import seedu.duke.commands.IncorrectCommand;
 import seedu.duke.commands.ReportCommand;
@@ -91,6 +92,9 @@ public class Parser {
 
         case ViewBudgetCommand.COMMAND_WORD:
             return createViewBudgetCommand(arguments);
+
+        case DeleteBudgetCommand.COMMAND_WORD :
+            return createDeleteBudgetCommand(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -276,7 +280,15 @@ public class Parser {
         final Matcher matcher = ADDBUDGET_COMMAND_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand("Incorrect Add Command");
+            return new IncorrectCommand("Incorrect Budget Add Command");
+        }
+        if (!matcher.group("category").toUpperCase().startsWith("D")
+                && !matcher.group("category").toUpperCase().startsWith("W")
+                && !matcher.group("category").toUpperCase().startsWith("M")) {
+            return new IncorrectCommand("Incorrect Budget Category");
+        }
+        if (!args.contains("/")) {
+            return new IncorrectCommand("Incorrect Budget Description");
         }
         try {
             return new AddBudgetCommand(
@@ -288,6 +300,17 @@ public class Parser {
         } catch (Exception e) {
             return new IncorrectCommand(e.getMessage());
         }
+    }
+
+    private Command createDeleteBudgetCommand(String args) {
+        Command finalCommand;
+        try {
+            int index = Integer.parseInt(args.trim());
+            finalCommand = new DeleteBudgetCommand(index);
+        } catch (Exception e) {
+            finalCommand = new IncorrectCommand("Incorrect Delete Budget Command");
+        }
+        return finalCommand;
     }
 
     private Command createViewBudgetCommand(String args) {
