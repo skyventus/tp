@@ -13,6 +13,7 @@ import seedu.duke.data.BudgetList;
 import seedu.duke.data.ReadOnlyTransaction;
 import seedu.duke.data.TransactionList;
 import seedu.duke.exception.IllegalValueException;
+import seedu.duke.storage.BudgetStorage;
 import seedu.duke.storage.Storage;
 import seedu.duke.storage.Storage.InvalidStorageFilePathException;
 import seedu.duke.utilities.Parser;
@@ -29,12 +30,14 @@ public class NusExpenses {
     private Ui ui;
     //private Storage storage;
     private TransactionList transactionList;
-
+    private BudgetList budgetList;
+    //private BudgetList budgetList = new BudgetList();
     //Expenses list shown to the user recently.
     private List<? extends ReadOnlyTransaction> lastShownList = Collections.emptyList();
     private Storage storage;
+    private BudgetStorage budgetStorage;
 
-    private BudgetList budgetList = new BudgetList();
+
     private List<? extends ReadOnlyBudget> lastShownBudgetList = Collections.emptyList();
 
     /**
@@ -60,7 +63,9 @@ public class NusExpenses {
         try {
             this.ui = new Ui();
             this.storage = initializeStorage();
+            this.budgetStorage = initializeBudgetStorage();
             this.transactionList = storage.load();
+            this.budgetList = budgetStorage.load();
             ui.showWelcomeMessage(VERSION);
             if (this.transactionList != null && !this.transactionList.getTransactionList().isEmpty()) {
                 ui.showToUser(Constants.ADD_EXPENSE_REMINDER);
@@ -104,6 +109,7 @@ public class NusExpenses {
             command.setData(transactionList, lastShownList);
             CommandResult result = command.execute();
             storage.save(transactionList);
+            budgetStorage.save(budgetList);
             return result;
         } catch (Exception e) {
             ui.showToUser("An error has occurred! Please reach out to Proj Team @https://ay2021s1-tic4001-4.github.io/tp/AboutUs.html");
@@ -114,5 +120,9 @@ public class NusExpenses {
 
     private Storage initializeStorage() throws InvalidStorageFilePathException {
         return new Storage();
+    }
+
+    private BudgetStorage initializeBudgetStorage() throws InvalidStorageFilePathException {
+        return new BudgetStorage();
     }
 }
