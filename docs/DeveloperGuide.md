@@ -2,15 +2,14 @@
 
 ## Design & implementation
 
-
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
 ## Design
-#####Architecture - Sample (To Be Changed)
 
+##### Architecture - Sample (To Be Changed)
 ![Sample - Architecture](images/Architecture.png)
 
-#####Component
+##### Component
 ![Component](images/TP-Design.png)
 
 ## Product scope
