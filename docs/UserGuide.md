@@ -141,6 +141,7 @@ Report exported successfully.
 ***************************************************
 
 ## Saving the data <br/>
+Saving is automatically after each command. It will be save into the
 expenses/mytransactions.txt is the directory where you can find the list of transactions being saved. <br/>
 
 ### Support or Contact <br/>
