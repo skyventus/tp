@@ -41,7 +41,8 @@ To manage all expenses faster than a typical excel budget spreadsheet.
 |***|v2.0|Student|Save all transactions to a readable text file and load from it|I can have a copy of transaction history.|
 |**|v2.0|Student|categorize my daily expense in the system|better managed/view my expenses|
 |**|v2.0|Student|add a budget in the system||
-|**|v2.0|Student|view the budget in the system||
+|**|v2.0|Student|delete a budget in the system||
+|**|v2.0|Student|view the budget with respect to expenses in the system||
 |**|v2.0|Student|view the transactions in the system with a specific time period|I can find the specific transaction more easily|
 |**|v2.0|Student|generate and export a transactions report summary with a specific time period|keep a copy and view them outside the system|
 |*|v2.0|Student|make sure I input daily expenses|I can keep track of it|
