@@ -182,7 +182,32 @@ public class Parser {
     private Command createTotalCommand(String args) {
         Command finalCommand;
         try {
-            finalCommand = new TotalCommand();
+            String temp = "";
+            Date startDate = null;
+            Date endDate = null;
+
+            if (args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_START_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                startDate = sdf.parse(temp.trim());
+                assert startDate != null : "Date cannot be null after parse";
+            }
+
+            if (args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) > 0) {
+                temp = args.substring(args.indexOf(Constants.VIEW_COMMAND_END_DATE_PARAM) + 3);
+                if (temp.indexOf("/") > 0) {
+                    temp = temp.substring(0, temp.indexOf("/"));
+                }
+                endDate = sdf.parse(temp.trim());
+                assert endDate != null : "Date cannot be null after parse";
+            }
+            if(startDate==null && endDate ==null){
+                finalCommand = new TotalCommand();
+            }else{
+                finalCommand = new TotalCommand(startDate,endDate);
+            }
         } catch (Exception e) {
             finalCommand = new IncorrectCommand("Incorrect Total Command");
         }
