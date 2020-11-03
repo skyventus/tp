@@ -1,27 +1,27 @@
 ## User Guide
 
-Big hello to Nus Expenses Tracker(NET). NET is an app for managing expenses, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
+Welcome to Nus Expenses Tracker(NET). NET is an app for managing expenses, optimized for use via a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). 
 
 ## Quick Start
 1. Ensure you have Java 11 or above installed in your Computer.
-2. Download the latest NusExpensesTracker.jar from [here](<links>).
-3. Copy the file to the folder you want to use as the home folder for your Nus Expenses Tracker Application.
-4. Open a command window in that folder.
-5. Run the command java -jar NusExpensesTracker.jar to open up the application.
-6. Type the command in the command box and press Enter to execute it.
+2. Download the latest NusExpensesTracker.jar from [here](https://github.com/AY2021S1-TIC4001-4/tp/releases).
+3. Copy the file to the directory you want to use as the home directory for your Nus Expenses Tracker Application.
+4. Open a command prompt / terminal window in that directory.
+5. Run the command ```java -jar NusExpensesTracker.jar``` to open up the application.
+6. Type the ```help``` in the command box and press ```Enter``` to execute it.
 
 ## Features
-Help: List down all the sample command that can help user to get started <br/>
-Add: Transactions with any date/time and category attached to it e.g., add breakfast $5.00 10 Oct 2020 /c FOOD<br/>
-Update: Update transactions that user specified <br/>
-Total: Total transactions amount will be displayed e.g., The total amount you have spent so far is $13.90 <br/>
-Delete: Delete transactions that you specified <br/>
-View: View all the transactions that has been added <br/>
-Search: Find keywords in the transactions <br/>
-Add Budget: Budget with any date/time attached to it e.g., budgetadd daily/food $20.00 <br/>
-View Budget: View all the budget that has been added <br/>
-Generate Report: Export data into an excel to show summary of transactions based on specified time period <br/>
-Exit: Exit the program <br/>
+Help: Lists the commands the user can use to interact with the application. <br/>
+Add: Add Transactions with optional date/time or category. E.g., add breakfast $5.00 10 Oct 2020 /c Food<br/>
+Update: Update a transaction's attributes, description, amount, category...  <br/>
+Total: Display the sum total spent from all transactions. E.g. The total amount you have spent so far is $13.90 <br/>
+Delete: Delete transactions a specified transaction <br/>
+View: View transactions that have been added. <br/>
+Search: Find transactions using a specified keyword. <br/>
+Add Budget: Add a Budget with optional date/time. E.g., budgetadd daily/food $20.00 <br/>
+View Budget: View all budgets that have been added. <br/>
+Generate Report: Export data into an Excel file (.xlsx) containing a summary of transactions with an optional specified time period. <br/>
+Exit: Exit NUSExpenses Tracker <br/>
 
 ### Help
 Format: help <br/>
@@ -125,8 +125,8 @@ New Budget has been added<br/>
 Format: budgetview <br/>
 Example: budgetview <br/>
 Output: <br/>
-DESCRIPTION: FOOD || Budget : $10.0 <br/>
- Current Spending for CATEGORY FOOD is $0.0 <br/>
+CATEGORY: DAILY || DESCRIPTION: FOOD || Budget : $50.0 <br/>
+ Current Spending TODAY for CATEGORY FOOD is $5.0 <br/>
  You expenses is on track. Good Job!
 ***************************************************
 Above are all budgets entered.
@@ -134,14 +134,16 @@ Above are all budgets entered.
 
 ### Generate Report
 Format: report /sd <start date>(optional) /ed <end date> (optional)<br/>
-Example: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 1: report /sd 2020-09-28 /ed 2020-09-30 <br/>
+Example 2: report
 Output: <br/>
 ***************************************************
 Report exported successfully.
 ***************************************************
 
 ## Saving the data <br/>
+Saving is done  automatically after each command. It will be saved into the
 expenses/mytransactions.txt is the directory where you can find the list of transactions being saved. <br/>
 
 ### Support or Contact <br/>
-Having trouble with executing the program? Email the team [here](e0261618@u.nus.edu) and We'll help you sort it out. 
+Having trouble with executing the program? Contact the team [here](https://ay2021s1-tic4001-4.github.io/tp/AboutUs.html) and We'll help you sort it out. 

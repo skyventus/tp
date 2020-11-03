@@ -16,7 +16,15 @@ public class AddBudgetCommand extends Command {
     private final Budget toAdd;
 
     public AddBudgetCommand(String category, String description, double amount) {
-        this.toAdd = new Budget(category, description, amount);
+
+        if (category.toUpperCase().startsWith("M")) {
+            this.toAdd = new Budget("MONTHLY", description.toUpperCase(), amount);
+        } else if (category.toUpperCase().startsWith("W")) {
+            this.toAdd = new Budget("WEEKLY", description.toUpperCase(), amount);
+        } else {
+            this.toAdd = new Budget("DAILY", description.toUpperCase(), amount);
+        }
+
     }
 
     @Override
