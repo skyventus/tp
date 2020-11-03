@@ -203,9 +203,9 @@ public class Parser {
                 endDate = sdf.parse(temp.trim());
                 assert endDate != null : "Date cannot be null after parse";
             }
-            if(startDate==null && endDate ==null){
+            if (startDate == null && endDate == null) {
                 finalCommand = new TotalCommand();
-            }else{
+            } else {
                 finalCommand = new TotalCommand(startDate,endDate);
             }
         } catch (Exception e) {
