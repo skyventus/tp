@@ -16,8 +16,11 @@
 ######Storage(Load)
 ![StorageComponent](images/storageDecodedDiagram.png)
 
-######Storage(save)
+###### Storage(save)
 ![StorageComponent](images/storageEncodedDiagram.png)
+
+###### Search Command Sequence Diagram
+![Sequence](images/SearchSequenceDiagram.png)
 
 API:  ```Storage.java```
 
