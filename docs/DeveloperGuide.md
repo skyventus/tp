@@ -79,3 +79,33 @@ add chicken rice $4.00 2020-11-01 /C FOOD. ```).
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
+## Implementation
+This section describes some noteworthy details on how certain features are implemented.
+
+##### Report Feature
+
+The purpose of report feature is to facilitate user to generate report for the expenses user entered. 
+It extends Command and TrancationList, get all the transcations and generate report with a time period.
+
+Given below is an example usage scenario and how the report mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The TrancationList is empty, there is no record in the transcationList, user will need to add transaction.
+
+![Sample - Stage1](images/Stage1.JPG)
+
+Step 2. User should enter the add command and add in some of the transcations in order to extract the report with valuable data.
+
+![Sample - Stage2](images/Stages2.JPG)
+
+Step 3. After user enters record in transactionList, then can proceed to generate the report with or without a time period.
+
+![Sample - Stage3](images/Stages3.JPG)
+
+In the stage 3, when transaction export to excel file, program is using external library called 'Apache-POI', this library helps to generate the excel file into such format that:
+
+![Sample - CSV](images/CSV.JPG)
+
+The following activity diagram summarizes what happens when a user executes a report command:
+
+![Sample - Report Activity Diagram](images/Report Activity Diagram.PNG)
