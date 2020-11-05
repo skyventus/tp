@@ -12,6 +12,22 @@
 ##### Component
 ![Component](images/TP-Design.png)
 
+##### Storage Component
+######Storage(Load)
+![StorageComponent](images/storageDecodedDiagram.png)
+
+######Storage(save)
+![StorageComponent](images/storageEncodedDiagram.png)
+
+API:  ```Storage.java```
+
+The Storage Component,
+* Load function will read the text file and passing the list of string in the file
+to the decoding class. 
+
+* Saving function will Encode the transaction detail and pass it back to storage
+to save to the file. 
+
 ## Product scope
 ##### Target user profile
 
