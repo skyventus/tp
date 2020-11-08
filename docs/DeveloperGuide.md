@@ -19,9 +19,6 @@
 ###### Storage(save)
 ![StorageComponent](images/storageEncodedDiagram.png)
 
-###### Search Command Sequence Diagram
-![Sequence](images/SearchSequenceDiagram.png)
-
 API:  ```Storage.java```
 
 The Storage Component,
@@ -30,6 +27,15 @@ to the decoding class.
 
 * Saving function will Encode the transaction detail and pass it back to storage
 to save to the file. 
+
+
+###### Search Command Sequence Diagram
+![Sequence](images/SearchSequenceDiagram.png)
+
+
+###### Total Command Sequence Diagram
+![Sequence](images/TotalCommandSequence.png)
+
 
 ## Product scope
 ##### Target user profile
