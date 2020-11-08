@@ -1,12 +1,47 @@
 # Developer Guide
+* [Setting Up and Getting Started](#Setting-Up-and-Getting-Started)
+* [Design](#Design)
+  * [Architecture](#Architecture)
+  * [UI component](#Component)
+  * [Logic component](#Component)
+  * [Model component](#Component)
+  * [Storage component](#Storage-Component)
+  * [Common classes](#Component)
+* [Implementation](#Implementation)
+* [Appendix: Requirements](#Appendix:-Requirements)
+  * [Product scope](#Product-scope)
+  * [User stories](#User-Stories)
+  * [Non-Functional Requirements](#Non-Functional-Requirements)
+  * [Glossary](#Glossary)
 
-## Design & implementation
 
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+## Setting Up and Getting Started
+:heavy_exclamation_mark: **Caution** Follow the steps in the following guide precisely. Things will not work out if you deviate in some steps.
 
+First, **fork** this repo, and **clone** the fork into your computer.
+If you plan to use Intellij IDEA (highly recommended):
+
+1. **Configure the JDK:**
+  * Ensure you have the correct JDK version installed in your computer.
+  * Open IntelliJ (if you are not in the welcome screen, click File → Close Project to close the existing project dialog first).
+  * Set up the correct JDK version for Gradle.
+    * Click Configure → Project Defaults → Project Structure
+    * Click New…​ and set it to the directory of the JDK.
+2. **Import the project as a Gradle project:**
+  * IntelliJ IDEA by default has the Gradle plugin installed. If you have disabled it, go to File → Settings → Plugins to re-enable them.
+  * If your project involves GUI programming, similarly ensure the JavaFX plugin has not been disabled.
+  * Click Import Project (or Open or Import in newer version of Intellij).
+  * Locate the build.gradle file (not the root folder as you would do in a normal importing) and select it. Click OK.
+  * If asked, choose to Open as Project (not Open as File).
+  * Click OK to accept the default settings but do ensure that the selected version of Gradle JVM matches the JDK being used for the project.
+  * Wait for the importing process to finish (could take a few minutes).
+  * :heavy_exclamation_mark: **Note**: Importing a Gradle project is slightly different from importing a normal Java project.
+3. **Verify the setup:**
+  * Run the NusExpenses.java and try a few commands.
+  
 ## Design
 
-##### Architecture - Sample (To Be Changed)
+##### Architecture
 ![Sample - Architecture](images/Architecture.png)
 
 ##### Component
@@ -36,8 +71,58 @@ to save to the file.
 ###### Total Command Sequence Diagram
 ![Sequence](images/TotalCommandSequence.png)
 
+## Implementation
+This section describes some noteworthy details on how certain features were implemented.
 
-## Product scope
+##### Delete Feature
+
+The purpose of delete function is to facilitate user to remove a transaction in the TransactionList if they made a mistake.
+It extends Command and TransactionList to get the correct index to remove.
+
+Given below is an example usage scenario and how the report mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The TransactionList is empty.
+
+![Sample - Stage1](images/ReportFeature_Stage1.png)
+
+Step 2. User executes ```add Lunch at ...``` to add a new transaction. The ```add``` command will save the record into TransactionList. User will continue to add another 5 more records to the TransactionList. There are a total of 6 Transactions saved.
+
+![Sample - Stage2](images/DeleteFeature_Stage2.png)
+
+Step 3. User executes ```delete 3``` command to delete the 3rd transaction in the Expenses Tracking Application. TransactionList will be left with 5 records after User delete successfully.
+
+![Sample - Stage3](images/DeleteFeature_Stage3.png)
+
+
+##### Report Feature
+
+The purpose of report feature is to facilitate user to be able to generate a summary report with all the expense details user entered. 
+It extends Command and TransactionList, get all the transactions and generate report with a time period.
+
+Given below is an example usage scenario and how the report mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The TransactionList is empty.
+
+![Sample - Stage1](images/ReportFeature_Stage1.png)
+
+Step 2. User executes ```add Lunch at ...``` to add a new transaction. The ```add``` command will save the record into TransactionList.
+
+![Sample - Stage2](images/ReportFeature_Stage2.png)
+
+Step 3. After user enters multiple records in TransactionList, they will executes ```report /sd...``` command to generate the report with or without a time period.
+
+![Sample - Stage3](images/ReportFeature_Stage3.png)
+
+In step 3, the application used an external library named **'Apache-POI'**. This library helps to generate the summary report into an Excel file with the following format:
+
+![Sample - CSV](images/CSV.JPG)
+
+The following activity diagram summarizes what happens when a user executes report command:
+
+![Sample - Report Activity Diagram](images/Report%20Activity%20Diagram.png)
+
+## Appendix: Requirements
+### Product scope
 ##### Target user profile
 
 * Has a need to manage his/her expenses
@@ -49,9 +134,7 @@ to save to the file.
 ##### Value proposition: 
 To manage all expenses faster than a typical excel budget spreadsheet.
 
-
-
-## User Stories
+### User Stories
 
 |Priority|Version| As a ... | I want to ... | So that I can ...|
 |--------|--------|----------|---------------|------------------|
@@ -74,7 +157,7 @@ To manage all expenses faster than a typical excel budget spreadsheet.
 |*|v2.0|Student|make sure I input daily expenses|I can keep track of it|
 |*|v2.0|Student|view tips on saving money|have motivation to achieve my goal|
 
-## Non-Functional Requirements
+### Non Functional Requirements
 
 1. Should work on any mainstream OS as long it has Java ```11``` or above installed.
 2. User will be able to interact with the systems with regular english text. For example: (```
@@ -82,40 +165,10 @@ add chicken rice $4.00 2020-11-01 /C FOOD. ```).
 3. Will be able to handle up to 1000 expenses without noticeable slowness in performance for typical usage.
 4. User will be able to interact with their expenses.txt if they wish to make amendment. 
 
-## Glossary
+### Glossary
 
 * *MainStream OS* - Windows, Linux, Unix, OS-X
 
 ## Instructions for manual testing
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
-
-## Implementation
-This section describes some noteworthy details on how certain features are implemented.
-
-##### Report Feature
-
-The purpose of report feature is to facilitate user to generate report for the expenses user entered. 
-It extends Command and TrancationList, get all the transcations and generate report with a time period.
-
-Given below is an example usage scenario and how the report mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The TrancationList is empty, there is no record in the transcationList, user will need to add transaction.
-
-![Sample - Stage1](images/Stage1.JPG)
-
-Step 2. User should enter the add command and add in some of the transcations in order to extract the report with valuable data.
-
-![Sample - Stage2](images/Stages2.JPG)
-
-Step 3. After user enters record in transactionList, then can proceed to generate the report with or without a time period.
-
-![Sample - Stage3](images/Stages3.JPG)
-
-In the stage 3, when transaction export to excel file, program is using external library called 'Apache-POI', this library helps to generate the excel file into such format that:
-
-![Sample - CSV](images/CSV.JPG)
-
-The following activity diagram summarizes what happens when a user executes a report command:
-
-![Sample - Report Activity Diagram](images/Report Activity Diagram.PNG)
