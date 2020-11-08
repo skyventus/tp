@@ -51,9 +51,12 @@ If you plan to use Intellij IDEA (highly recommended):
 ######Storage(Load)
 ![StorageComponent](images/storageDecodedDiagram.png)
 
+
 ###### Storage(save)
 ![StorageComponent](images/storageEncodedDiagram.png)
 
+######Budget Storage(Load)
+![BudgetStorageComponent](images/BudgetStorageDecodedDiagram.png)
 API:  ```Storage.java```
 
 The Storage Component,
