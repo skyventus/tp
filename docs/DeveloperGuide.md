@@ -68,8 +68,10 @@ to save to the file.
 
 
 ###### Search Command Sequence Diagram
-![Sequence](images/SearchSequenceDiagram.png)
+![SearchCommand Sequence Diagram](images/SearchSequenceDiagram.png)
 
+###### Search Command Object Diagram
+![SearchCommand Object Diagram](images/SearchCommandObjectDiagram.png)
 
 ###### Total Command Sequence Diagram
 ![Sequence](images/TotalCommandSequence.png)
@@ -138,6 +140,11 @@ The following activity diagram summarizes what happens when a user executes repo
 To manage all expenses faster than a typical excel budget spreadsheet.
 
 ### User Stories
+
+[User Stories on Trello Board](https://trello.com/b/2290RLsD/nusexpenseshelper "User Stories on Trello~")
+
+###### Use Case Diagram
+![NUS Expenses Tracker - UC](images/NUSExpenseTrackerUCDiagram.png)
 
 |Priority|Version| As a ... | I want to ... | So that I can ...|
 |--------|--------|----------|---------------|------------------|
