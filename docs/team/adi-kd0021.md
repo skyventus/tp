@@ -42,10 +42,18 @@ NET is an app for managing expenses, optimized for use via a Command Line Interf
 * Documentation:
   * User Guide:
     * Added documentation for the ```view``` ([#52](https://github.com/AY2021S1-TIC4001-4/tp/pull/52))
+    
   * Developer Guide:
-    * TBD
+    * Added Component diagram
+    * Added plantUML Architecture.puml ([#67](https://github.com/AY2021S1-TIC4001-4/tp/pull/67))
+    * Fixed UG and DG grammar, markdowns... ([#68](https://github.com/AY2021S1-TIC4001-4/tp/pull/68))
+    * Added SearchCommand Sequence diagram ([#79](https://github.com/AY2021S1-TIC4001-4/tp/pull/79))
+    * Added SearchCommand Object diagram 
+    * Added NUS Expense Tracker Use Case diagram ([#84](https://github.com/AY2021S1-TIC4001-4/tp/pull/84))
+    
 * Community:
-  * Our application was created using a combination of pair-programming and adhoc coding sessions. During each session lasting between an hour to four or more, all group members sat in a meeting session while coding/ implementing their assigned components. If a concern was raised or support was needed, they shared their screen via the meeting session and everyone participated or assisted to clear the obstacle. Using this method we've successfully cleared v1.0 to v3.0 of our project milestones. 
+  * Our application was developed using a combination of pair-programming and adhoc coding sessions. During each session lasting between an hour to four or more, all group members sat in a meeting session while coding/ implementing their assigned components. If a concern was raised or support was needed, they shared their screen via the meeting session and everyone participated or assisted to clear the obstacle. Using this method we've successfully cleared v1.0 to v3.0 of our project milestones. 
 
 * Tools
   * All Regular Expression created with aid of [RegExr](https://regexr.com/) by gskinner.
+  * Diagrams drawn using [draw.io / diagrams.net](https://app.diagrams.net/ "Diagram with anyone, anywhere")
