@@ -91,14 +91,16 @@ The following *Object Diagram* gives an overview of which objects are accessed a
 ###### Search Command Object Diagram
 ![SearchCommand Object Diagram](images/SearchCommandObjectDiagram.png)
 
-###### BudgetView Object Diagram
-![Sequence](images/ViewBudgetObjectDiagram.png)
-
 The following *Sequence Diagram* shows how the components interact in the scenario where the user issues the `total` command.
 
 ###### Total Command Sequence Diagram
 ![Sequence](images/TotalCommandSequence.png)
 
+The *Budget View Object Diagram* gives an overview of which objects are accessed and associated when the `budgetview` command is called, together with sample values for illustration 
+###### BudgetView Object Diagram
+![Sequence](images/ViewBudgetObjectDiagram.png)
+
+The *Budget View Sequence Diagram* shows how does components interact with each other in the scenario when user issues `budgetview` command.
 ###### BudgetView Sequence Diagram
 ![Sequence](images/ViewBudgetSequenceDiagram.png)
 
