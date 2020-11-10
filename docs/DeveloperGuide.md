@@ -72,9 +72,6 @@ One example would be the `Storage` component which defines its API in `Storage.j
 ###### Storage(save)
 ![StorageComponent](images/storageEncodedDiagram.png)
 
-###### Budget Storage(Load)
-![BudgetStorageComponent](images/BudgetStorageDecodedDiagram.png)
-
 API:  ```Storage.java```
 
 The Storage Component,
@@ -94,10 +91,16 @@ The following *Object Diagram* gives an overview of which objects are accessed a
 ###### Search Command Object Diagram
 ![SearchCommand Object Diagram](images/SearchCommandObjectDiagram.png)
 
+###### BudgetView Object Diagram
+![Sequence](images/ViewBudgetObjectDiagram.png)
+
 The following *Sequence Diagram* shows how the components interact in the scenario where the user issues the `total` command.
 
 ###### Total Command Sequence Diagram
 ![Sequence](images/TotalCommandSequence.png)
+
+###### BudgetView Sequence Diagram
+![Sequence](images/ViewBudgetSequenceDiagram.png)
 
 ## Implementation
 This section describes some noteworthy details on how certain features were implemented.
