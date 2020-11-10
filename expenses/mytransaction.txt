@@ -1,0 +1,7 @@
+2020-09-02 Lunch $3.50 /c FOOD
+2020-09-02 Lunch $3.50 /c FOOD
+2020-10-01 Avengers $12.50 /c MISC
+ Candle $12.50 /c MISC
+ Keyboard $198.50 /c GIFT
+ spinning top $17.50 /c MISC
+ dinner $5.00 /c ENTERTAINMENT
