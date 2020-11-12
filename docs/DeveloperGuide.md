@@ -70,6 +70,7 @@ To manage all expenses faster than a typical excel budget spreadsheet.
 |**|v2.0|Student|view the budget with respect to expenses in the system||
 |**|v2.0|Student|view the transactions in the system with a specific time period|I can find the specific transaction more easily|
 |**|v2.0|Student|generate and export a transactions report summary with a specific time period|keep a copy and view them outside the system|
+|**|v3.0|Student|view my expenses given a time period|view how much i spent during that period.|
 |*|v2.0|Student|make sure I input daily expenses|I can keep track of it|
 |*|v2.0|Student|view tips on saving money|have motivation to achieve my goal|
 
