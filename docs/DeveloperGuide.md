@@ -3,14 +3,13 @@
 * [Design](#Design)
   * [Architecture](#Architecture)
   * [UI component](#Component)
-  * [Logic component](#Component)
-  * [Model component](#Component)
   * [Storage component](#Storage-Component)
   * [Common classes](#Component)
 * [Implementation](#Implementation)
 * [Appendix: Requirements](#Appendix:-Requirements)
   * [Product scope](#Product-scope)
   * [User stories](#User-Stories)
+  * [User Cases](#Use-Cases)
   * [Non-Functional Requirements](#Non-Functional-Requirements)
   * [Glossary](#Glossary)
 
@@ -25,8 +24,8 @@ If you plan to use Intellij IDEA (highly recommended):
   * Ensure you have the correct JDK version installed in your computer.
   * Open IntelliJ (if you are not in the welcome screen, click File → Close Project to close the existing project dialog first).
   * Set up the correct JDK version for Gradle.
-    * Click Configure → Project Defaults → Project Structure
-    * Click New…​ and set it to the directory of the JDK.
+   * Click Configure → Project Defaults → Project Structure
+   * Click New…​ and set it to the directory of the JDK.
 2. **Import the project as a Gradle project:**
   * IntelliJ IDEA by default has the Gradle plugin installed. If you have disabled it, go to File → Settings → Plugins to re-enable them.
   * If your project involves GUI programming, similarly ensure the JavaFX plugin has not been disabled.
@@ -216,7 +215,3 @@ add chicken rice $4.00 2020-11-01 /C FOOD. ```).
 - Gradle - Gradle Build Tool - [Gradle User Manual](https://docs.gradle.org/current/userguide/userguide.html "Build Automation Tool - Docs")
 - Intellij / IDE - Intellij Integrated Development Environment - [IntelliJ IDEA](https://www.jetbrains.com/idea/ "JVM IDE") 
 - Plugin - IDE Plugins - [Intellij IDEA Plugins](https://www.jetbrains.com/help/idea/managing-plugins.html "Manage plugins")
-
-## Instructions for manual testing
-
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
