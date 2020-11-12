@@ -5,9 +5,9 @@ NET is an app for managing expenses, optimized for use via a Command Line Interf
 
 ### Contributions to the project.
 
-* Initial Code Skeleton / Baseline
+* Initial Code Skeleton / Baseline([#1](https://github.com/AY2021S1-TIC4001-4/tp/pull/1), [#9](https://github.com/AY2021S1-TIC4001-4/tp/pull/9))
 
-* New Feature: User Interface (UI)
+* New Feature: User Interface (UI)([#14](https://github.com/AY2021S1-TIC4001-4/tp/pull/14))
   * What it does: Provides a interface layer for the user to interact with. In this case, it handles the inputs from the user and displays outputs from the application to the user. Thus users respond to visual prompt and type a command on the specified line. 
   * Justification: This feature is a must have for a command line application. It allows users to know when to input commands and respond accordingly with feedbacks from the application.
   * Credits: Logic and design adapted from addressbook-level2 ([TextUi](https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/ui/TextUi.java))
@@ -19,14 +19,14 @@ NET is an app for managing expenses, optimized for use via a Command Line Interf
   * Justification: This method of pattern matching of a string allows for optional inputs as well as efficient parsing to isolate target arguments for processing. This also allows for good exception handling should the arugments supplied not match.
   * Credits: Some minor reference taken from addressbook-level2 ([Parser](https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/parser/Parser.java]))
      
-* New Feature: Added a Search Function
+* New Feature: Added a Search Function ([#21](https://github.com/AY2021S1-TIC4001-4/tp/pull/21))
   * What it does: allows the user to search for transactions with a specified keyword.
   * Justification: This feature is required for the user to view past transactions in a more efficient manner.
   * This function can be improved upon in future versions in order to allow more fine tuned searching of transaction records.
   * Credits: Logic and design adapted from addressbook-level2 ([FindCommand](https://github.com/se-edu/addressbook-level2/blob/master/src/seedu/addressbook/commands/FindCommand.java))
   
-* New Feature: Added the Category Functionality 
-  * What it does: Allows for the user to specify the category for a transaction when adding and or modifying. ([#39](https://github.com/AY2021S1-TIC4001-4/tp/pull/39)).
+* New Feature: Added the Category Functionality ([#39](https://github.com/AY2021S1-TIC4001-4/tp/pull/39))
+  * What it does: Allows for the user to specify the category for a transaction when adding and or modifying. .
   * Justification: This feature adds value by categorizing transactions with a String tag. This allows further sorting as well as a more insightful look at past transactions in order to understand why they had taken place.  
 
 * Code contributed: [RepoSense Link](https://nus-tic4001-ay2021s1.github.io/tp-dashboard/#breakdown=true&search=adi-kd0021&sort=groupTitle&sortWithin=title&since=2020-08-14&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other&tabOpen=true&tabType=authorship&tabAuthor=adi-kd0021&tabRepo=AY2021S1-TIC4001-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other)
@@ -35,9 +35,8 @@ NET is an app for managing expenses, optimized for use via a Command Line Interf
   * Managed releases ```v1.0``` - ```v3.0``` (3 releases) on Github
  
 * Enhancements to existing features:
-  * 
-  * Enhanced the View functionality to allow filtering to display only transactions of a specified category
-  * Enhanced the Update functionality to allow updating of a transactions category.
+  * Enhanced the View functionality to allow filtering to display only transactions of a specified category([#43](https://github.com/AY2021S1-TIC4001-4/tp/pull/43))
+  * Enhanced the Update functionality to allow updating of a transactions category.([#45](https://github.com/AY2021S1-TIC4001-4/tp/pull/45))
 
 * Documentation:
   * User Guide:
